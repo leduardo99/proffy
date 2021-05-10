@@ -8,7 +8,7 @@ const GlobalStyles = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  
+
   ${({ theme }) => css`
     @media (max-width: 1080px) {
       html {
@@ -22,8 +22,27 @@ const GlobalStyles = createGlobalStyle`
       }
     }
 
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: ${theme.colors.background};
+      transition: background-color 0.3s, color 0.3s;
+
+      color: ${theme.colors.title};
+    }
+
     button {
       cursor: pointer;
+    }
+
+    input {
+      height: 72px;
+    }
+
+    input,
+    textarea {
+      background-color: ${theme.colors.shapes};
+      border: 1px solid ${theme.colors.border};
+      border-radius: 8px;
     }
 
     a {

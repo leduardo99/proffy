@@ -1,20 +1,20 @@
 {
-  "name": "React Avançado - Boilerplate",
+  "name": "Proffy",
   "short_name": "React Avançado",
   "icons": [
     {
-      "src": "/img/icon-192.png",
+      "src": "/img/icon.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "/img/icon-512.png",
+      "src": "/img/icon@3x.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "576x576"
     }
   ],
   "background_color": "#06092B",
-  "description": "Boilerplate utilizando Typescript, React, NextJS e Styled Components!",
+  "description": "Proffy App",
   "display": "fullscreen",
   "start_url": "/",
   "theme_color": "#06092B"
