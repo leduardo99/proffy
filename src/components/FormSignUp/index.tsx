@@ -9,12 +9,12 @@ const FormSignUp: React.FC = () => {
   return (
     <S.Container>
       <S.Form>
-        <Input label="Nome" />
-        <Input label="Sobrenome" />
-        <Input label="Email" type="email" />
-        <Input label="Senha" type="password" />
+        <Input name="name" placeholder="Nome" />
+        <Input name="surname" placeholder="Sobrenome" />
+        <Input name="email" placeholder="Email" type="email" />
+        <Input name="password" placeholder="Senha" type="password" />
 
-        <Button label="Concluir cadastro" />
+        <Button>Concluir cadastro</Button>
 
         <div className="signin">
           <p>Já possui conta?</p>

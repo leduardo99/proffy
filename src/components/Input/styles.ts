@@ -1,59 +1,83 @@
 import styled, { css } from 'styled-components'
 
-export const Container = styled.div`
-  ${({ theme }) => css`
+interface Props {
+  stacked: boolean
+}
+
+export const Container = styled.div<Props>`
+  ${({ theme, stacked }) => css`
     position: relative;
-    background: ${theme.colors.boxFooter};
-    border-radius: 0.8rem 0.8rem 0 0;
-    border: 1px solid ${theme.colors.lineInWhite};
-
-    display: flex;
-    align-items: center;
-
-    &:focus-within::before {
-      height: calc(100% - 2rem);
-      content: '';
-      background: ${theme.colors.primaryLight};
-      position: absolute;
-      top: 1.2rem;
-      bottom: 1.2rem;
-      left: -1px;
-      width: 2px;
-    }
 
     & + & {
-      border-top: 0;
-      border-radius: 0 0 0.8rem 0.8rem;
+      margin-top: 1.4rem;
+    }
+
+    &:last-of-type {
+      margin-bottom: 1.4rem;
     }
 
     label {
-      position: absolute;
-      top: 25px;
-      left: 25px;
-      font: 400 1.6rem Poppins;
-      color: ${theme.colors.textComplement};
-      line-height: 2.5rem;
-      transition: all 0.2s;
-      cursor: pointer;
+      font-size: 1.4rem;
     }
 
-    input[type='email'],
-    input[type='password'],
-    input[type='text'] {
-      border: 0;
+    input {
       width: 100%;
+      height: 5.6rem;
+      margin-top: 0.8rem;
+      border-radius: 0.8rem;
+      background: ${theme.colors.inputBackground};
+      border: 1px solid ${theme.colors.lineInWhite};
       outline: 0;
-      margin: 2.8rem 0 0.5rem 1.8rem;
-      padding: 0.8rem;
-      background: ${theme.colors.boxFooter};
-      font: 400 1.6rem Poppins;
-      color: ${theme.colors.textBase};
+      padding: 0 1.6rem;
+      font: 1.6rem Archivo;
     }
 
-    input:focus + label,
-    input:not(:placeholder-shown) + label {
-      top: 17px;
-      font: 400 1.25rem Poppins;
+    input[disabled] {
+      background: none;
+      border: none;
     }
+
+    &:focus-within::after {
+      width: calc(100% - 3.2rem);
+      content: '';
+      height: 2px;
+      background: ${theme.colors.primary};
+      position: absolute;
+      left: 1.6rem;
+      right: 1.6rem;
+      bottom: 0;
+    }
+
+    ${!stacked &&
+    css`
+      margin: 0;
+
+      & + & {
+        margin-top: 0;
+      }
+
+      &:first-of-type {
+        margin-top: 1.4rem;
+
+        input {
+          border-top-left-radius: 0.8rem;
+          border-top-right-radius: 0.8rem;
+        }
+      }
+
+      &:last-of-type {
+        margin-bottom: 1.4rem;
+
+        input {
+          border-bottom-left-radius: 0.8rem;
+          border-bottom-right-radius: 0.8rem;
+        }
+      }
+
+      input {
+        margin: 0;
+        border-radius: 0;
+      }
+    `}
   `}
 `

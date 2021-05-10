@@ -11,7 +11,7 @@ type AuthProps = {
 const Auth = ({ title, layout = 'normal', children }: AuthProps) => (
   <S.Wrapper layout={layout}>
     <S.BannerBlock>
-      <img src="img/proffy.svg" />
+      <img src="img/logo.svg" />
     </S.BannerBlock>
 
     <S.Content>

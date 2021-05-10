@@ -5,8 +5,6 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
   }
 
   ${({ theme }) => css`
@@ -26,23 +24,26 @@ const GlobalStyles = createGlobalStyle`
       font-family: 'Poppins', sans-serif;
       background-color: ${theme.colors.background};
       transition: background-color 0.3s, color 0.3s;
+    }
 
-      color: ${theme.colors.title};
+    html {
+      overflow-x: hidden;
+    }
+
+    body,
+    input,
+    button,
+    textarea {
+      font: 500 1.6rem Poppins;
     }
 
     button {
       cursor: pointer;
     }
 
-    input {
-      height: 72px;
-    }
-
-    input,
-    textarea {
-      background-color: ${theme.colors.shapes};
-      border: 1px solid ${theme.colors.border};
-      border-radius: 8px;
+    .container {
+      width: 90vw;
+      max-width: 700px;
     }
 
     a {

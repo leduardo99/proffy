@@ -32,8 +32,11 @@ export const BannerBlock = styled.div`
   align-items: center;
   justify-content: center;
 
-  background: url('img/auth-bg.svg') no-repeat center
-    ${(props) => props.theme.colors.primary};
+  background: url('img/squared-background.svg');
+  background-color: ${(props) => props.theme.colors.primary};
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 
   width: 100%;
   height: 100%;

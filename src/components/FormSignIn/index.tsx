@@ -10,10 +10,10 @@ import * as S from './styles'
 const FormSignIn: React.FC = () => {
   return (
     <S.Container>
-      <Input label="Email" />
-      <Input label="Senha" type="password" />
+      <Input placeholder="Email" name="email" />
+      <Input placeholder="Senha" type="password" name="password" />
 
-      <Button label="Entrar" />
+      <Button>Entrar</Button>
 
       <S.Footer>
         <div className="footer-container">

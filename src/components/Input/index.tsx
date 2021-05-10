@@ -2,18 +2,22 @@ import React, { InputHTMLAttributes } from 'react'
 
 import * as S from './styles'
 
-interface Props {
-  label: string
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  label?: string
+  name: string
+  stacked?: boolean
 }
 
-type InputProps = Props & InputHTMLAttributes<HTMLInputElement>
-
-const Input: React.FC<InputProps> = ({ label, ...rest }) => {
+const Input: React.FunctionComponent<InputProps> = ({
+  label,
+  stacked = false,
+  name,
+  ...rest
+}) => {
   return (
-    <S.Container>
-      <input type="text" {...rest} />
-
-      <label>{label}</label>
+    <S.Container stacked={stacked}>
+      {label && <label htmlFor={name}>{label}</label>}
+      <input type="text" id={name} {...rest} />
     </S.Container>
   )
 }

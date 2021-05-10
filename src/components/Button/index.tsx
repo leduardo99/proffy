@@ -1,15 +1,9 @@
-import React, { ButtonHTMLAttributes } from 'react'
+import React from 'react'
 
 import * as S from './styles'
 
-interface Props {
-  label: string
-}
-
-type ButtonProps = Props & ButtonHTMLAttributes<HTMLButtonElement>
-
-const Button: React.FC<ButtonProps> = ({ label, ...rest }) => {
-  return <S.Wrapper {...rest}>{label}</S.Wrapper>
+const Button: React.FC = ({ children, ...rest }) => {
+  return <S.Wrapper {...rest}>{children}</S.Wrapper>
 }
 
 export default Button
