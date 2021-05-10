@@ -1,17 +1,30 @@
 import styled, { css } from 'styled-components'
 import { up } from 'styled-breakpoints'
 
-export const Wrapper = styled.main`
+interface WrapperProps {
+  layout: 'normal' | 'reverse'
+}
+
+export const Wrapper = styled.main<WrapperProps>`
   display: grid;
   grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas:
+    'banner'
+    'content';
+
   height: 100vh;
 
   ${up('lg')} {
     grid-template-columns: 1fr 1fr;
+    grid-template-areas: ${(props) =>
+      props.layout === 'normal' ? "'banner content'" : "'content banner'"};
   }
 `
 
 export const BannerBlock = styled.div`
+  grid-area: banner;
+
   display: flex;
 
   flex-direction: column;
@@ -48,15 +61,20 @@ export const Footer = styled.p`
 `
 
 export const Content = styled.div`
+  grid-area: content;
+
   ${({ theme }) => css`
     background: ${theme.colors.background};
     display: grid;
+
     align-items: center;
     justify-content: center;
   `}
 `
 
 export const ContentWrapper = styled.div`
+  padding: 15px;
+
   width: 30rem;
 
   ${up('md')} {

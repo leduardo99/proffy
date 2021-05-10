@@ -19,7 +19,7 @@ const FormSignIn: React.FC = () => {
         <div className="footer-container">
           <div className="signup">
             <p>Não tem conta?</p>
-            <Link href="/signup">
+            <Link href="/sign-up">
               <a>Cadastre-se</a>
             </Link>
           </div>
