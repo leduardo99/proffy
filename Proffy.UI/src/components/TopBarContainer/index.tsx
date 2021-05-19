@@ -1,8 +1,10 @@
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useSession, signOut } from 'next-auth/client'
 
 import * as S from './styles'
+import { getImageUrl } from 'utils/getImageUrl'
 
 interface TopBarContainerProps {
   profile?: boolean
@@ -15,14 +17,10 @@ const TopBarContainer: React.FunctionComponent<TopBarContainerProps> = ({
   title,
   transparent = false
 }) => {
-  const user = {
-    avatar: 'https://avatars.githubusercontent.com/u/35582603?v=4',
-    name: 'Luis',
-    surname: 'Eduardo'
-  }
+  const [session] = useSession()
 
   function handleSignOut() {
-    // TODO
+    signOut()
   }
 
   return (
@@ -31,8 +29,13 @@ const TopBarContainer: React.FunctionComponent<TopBarContainerProps> = ({
         <div className="top-bar-container">
           <Link href="/profile">
             <a className="profile-button">
-              <img src={user.avatar} alt="Perfil" />
-              <p>{[user.name, user.surname].join(' ')}</p>
+              {session?.user.image && (
+                <img
+                  src={getImageUrl(session.user.image as string)}
+                  alt={String(session?.user?.name)}
+                />
+              )}
+              <p>{String(session?.user?.name)}</p>
             </a>
           </Link>
           <p>{title}</p>

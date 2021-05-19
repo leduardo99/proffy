@@ -3,21 +3,25 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { signIn } from 'next-auth/client'
 import { FaHeart } from 'react-icons/fa'
+import { SubmitHandler } from '@unform/core'
 
 import Input from 'components/Input'
 import Button from 'components/Button'
 
 import * as S from './styles'
 
+interface FormData {
+  email: string
+  password: string
+}
+
 const FormSignIn: React.FC = () => {
   const routes = useRouter()
   const { push, query } = routes
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault()
-
+  const handleSubmit: SubmitHandler<FormData> = async (values) => {
     const result = await signIn('credentials', {
-      // ...values,
+      ...values,
       redirect: false,
       callbackUrl: `${window.location.origin}${query?.callbackUrl || ''}`
     })
@@ -28,11 +32,11 @@ const FormSignIn: React.FC = () => {
   }
 
   return (
-    <S.Container onSubmit={() => null}>
+    <S.Container onSubmit={handleSubmit}>
       <Input placeholder="Email" name="email" />
       <Input placeholder="Senha" type="password" name="password" />
 
-      <Button>Entrar</Button>
+      <Button type="submit">Entrar</Button>
 
       <S.Footer>
         <div className="footer-container">

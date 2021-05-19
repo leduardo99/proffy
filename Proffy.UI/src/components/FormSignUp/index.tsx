@@ -22,8 +22,8 @@ interface FormData {
 const FormSignUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null)
 
-  const [createUser, { error, loading }] = useMutation(MUTATION_REGISTER, {
-    onError: (err) => toast.error('erro'),
+  const [register, { error, loading }] = useMutation(MUTATION_REGISTER, {
+    onError: () => toast.error('Não foi possível realizar o cadastro.'),
     onCompleted: () => {
       !error &&
         formRef?.current &&
@@ -36,9 +36,9 @@ const FormSignUp: React.FC = () => {
   })
 
   const handleSubmit: SubmitHandler<FormData> = async (data) => {
-    createUser({
+    register({
       variables: {
-        input: { data: { ...data, username: 'abc' } }
+        input: { ...data }
       }
     })
   }

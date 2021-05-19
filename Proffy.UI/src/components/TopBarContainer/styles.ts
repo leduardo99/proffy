@@ -37,6 +37,12 @@ export const Container = styled.div<Props>`
       max-width: 1100px;
     }
 
+    img {
+      height: 4.2rem;
+      border-radius: 50%;
+      margin-right: 1.2rem;
+    }
+
     & > img {
       height: 1.6rem;
     }
@@ -47,18 +53,13 @@ export const Container = styled.div<Props>`
       justify-content: flex-start;
       flex-direction: row;
 
-      img {
-        height: 4.2rem;
-        border-radius: 50%;
-        margin-right: 1.2rem;
-      }
-
       p {
         text-decoration: none;
         color: ${(props) => props.theme.colors.buttonText};
         font: 400 1.2rem Poppins;
         border: 0;
       }
+
       & + p + img {
         background: ${(props) => props.theme.colors.primaryDarker};
         height: 100%;

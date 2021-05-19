@@ -1,15 +1,12 @@
-import NextAuth, { User } from 'next-auth'
-import { Session } from 'next-auth'
-import { JWT } from 'next-auth/jwt'
+import NextAuth, { Session } from 'next-auth'
 import Providers from 'next-auth/providers'
-import { NextApiRequest, NextApiResponse } from 'next-auth/internals/utils'
 
 type AuthorizeProps = {
   email: string
   password: string
 }
 
-const options = {
+export default NextAuth({
   pages: {
     signIn: '/sign-in'
   },
@@ -37,26 +34,22 @@ const options = {
     })
   ],
   callbacks: {
-    session: async (session: Session, user: User) => {
+    session: async (session: Session, user: any) => {
       session.jwt = user.jwt
       session.id = user.id
+      session.user.image = user.picture.url
 
       return Promise.resolve(session)
     },
-    jwt: async (token: JWT, user: User) => {
+    jwt: async (token, user: any) => {
       if (user) {
         token.id = user.id
         token.email = user.email
-        token.name = user.username as string
+        token.name = `${user.name} ${user.surname}` as string
         token.jwt = user.jwt
       }
 
       return Promise.resolve(token)
     }
   }
-}
-
-const Auth = (req: NextApiRequest, res: NextApiResponse) =>
-  NextAuth(req, res, options)
-
-export default Auth
+})
