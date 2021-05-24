@@ -20,7 +20,7 @@ const Header: React.FC<HeaderProps> = ({ title, backTo }) => {
 
         <span>{title}</span>
 
-        <img src="img/icons/logo.svg" alt="Proffy" />
+        <img src="img/logo.svg" alt="Proffy" />
       </div>
     </Container>
   )

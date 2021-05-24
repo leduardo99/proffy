@@ -24,12 +24,9 @@ export const Container = styled.header`
       color: ${({ theme }) => theme.colors.textInPrimary};
       font-weight: 500;
 
-      & + svg {
+      & + img {
         height: 1.5rem;
         width: 5.2rem;
-        path {
-          fill: ${({ theme }) => theme.colors.textInPrimary};
-        }
       }
     }
   }

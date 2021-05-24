@@ -1,35 +1,68 @@
 import Link from 'next/link'
-// import LogoContainer from 'components/LogoContainer'
-// import TopBarContainer from 'components/TopBarContainer'
+import { useSession, signOut } from 'next-auth/client'
+import { useRouter } from 'next/router'
+
+import Button from 'components/Button'
 
 import * as S from './styles'
+import { getImageUrl } from 'utils/getImageUrl'
+
 export default function Home() {
+  const [session] = useSession()
+  const { push } = useRouter()
+
   return (
     <S.Container>
-      {/* <TopBarContainer profile /> */}
-      <div id="page-landing-content" className="container">
-        {/* <LogoContainer background={false} /> */}
-
-        <img
-          src="img/landing.svg"
-          alt="Plataforma de estudos"
-          className="hero-image"
-        />
-
-        <div className="buttons-container">
-          <Link href="/services">
-            <a className="find-service">Buscar Serviços</a>
+      <S.TopContent>
+        <S.Header>
+          <Link href="/profile">
+            <a>
+              {session?.user.image && (
+                <img src={getImageUrl(session?.user.image)} alt="Profile" />
+              )}
+              <span>{session?.user.name}</span>
+            </a>
           </Link>
-          <Link href="/services/offer">
-            <a className="offer-services">Oferecer Serviços</a>
-          </Link>
-        </div>
 
-        <span className="total-connections">
-          Total de 10 conexões já realizadas{' '}
-          <img src="img/icons/purple-heart.svg" alt="Coração Roxo" />
-        </span>
-      </div>
+          <button onClick={() => signOut()} type="button">
+            <img src="img/icons/leave.svg" alt="Sair" />
+          </button>
+        </S.Header>
+
+        <S.LogoContainer>
+          <div>
+            <img src="img/logo.svg" alt="Proffy" />
+            <h1>Sua plataforma de estudos online.</h1>
+          </div>
+
+          <img src="img/landing.svg" alt="Landing" />
+        </S.LogoContainer>
+      </S.TopContent>
+      <S.Footer>
+        <S.InfoContainer>
+          <h2>
+            Seja bem vindo.
+            <strong>O Que deseja fazer?</strong>
+          </h2>
+
+          <small>
+            Total de 10 conexões já realizadas
+            <img src="img/icons/purple-heart.svg" alt="Landing" />
+          </small>
+        </S.InfoContainer>
+
+        <S.ButtonsContainer>
+          <Button onClick={() => push('/services')}>
+            {/* <StudyIcon /> */}
+            Serviços
+          </Button>
+
+          <Button onClick={() => push('/services/offer')}>
+            {/* <GiveClassesIcon /> */}
+            Ofecerer Serviços
+          </Button>
+        </S.ButtonsContainer>
+      </S.Footer>
     </S.Container>
   )
 }

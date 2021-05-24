@@ -7,24 +7,11 @@
 // START Enums and Input Objects
 //==============================================================
 
-export interface UserInput {
-  username: string;
+export interface UsersRegisterInput {
   email: string;
-  provider?: string | null;
-  password?: string | null;
-  resetPasswordToken?: string | null;
-  confirmationToken?: string | null;
-  confirmed?: boolean | null;
-  blocked?: boolean | null;
-  role?: string | null;
+  password: string;
   name: string;
   surname: string;
-  created_by?: string | null;
-  updated_by?: string | null;
-}
-
-export interface createUserInput {
-  data?: UserInput | null;
 }
 
 //==============================================================

@@ -1,88 +1,204 @@
 import styled from 'styled-components'
+import { darken } from 'polished'
+
+import { ButtonContainer } from 'components/Button/styles'
 
 export const Container = styled.div`
-  width: 100%;
-  height: 100%;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: ${(props) => props.theme.colors.textInPrimary};
-  background: ${(props) => props.theme.colors.primary};
+  height: 100vh;
 
-  .logo-container {
-    text-align: center;
-    margin-bottom: 3.2rem;
+  background: ${({ theme }) => theme.colors.background};
+`
+
+export const TopContent = styled.div`
+  background: ${({ theme }) => theme.colors.primary};
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media (min-width: 900px) {
+    height: 70vh;
+  }
+`
+
+export const Header = styled.header`
+  max-width: 116.8rem;
+  width: 100%;
+  padding: 2.4rem 2.4rem 0 2.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  > a {
+    text-decoration: none;
+
+    display: flex;
+    align-items: center;
 
     img {
-      height: 10rem;
+      height: 4rem;
+      width: 4rem;
+      border-radius: 50%;
     }
 
-    h2 {
-      width: auto;
-      font-weight: 500;
-      font-size: 2.4rem;
-      line-height: 4.6rem;
-      margin-top: 0.8rem;
-    }
-  }
-
-  .hero-image {
-    width: 100%;
-  }
-
-  .buttons-container {
-    display: flex;
-    justify-content: center;
-    margin: 3.2rem 0;
-
-    a {
-      width: 30rem;
-      height: 10.4rem;
-      border-radius: 0.8rem;
-      font: 700 2rem Archivo;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      color: ${(props) => props.theme.colors.buttonText};
-      transition: 0.2s;
-
-      &:first-child {
-        margin-right: 1.6rem;
-      }
-
-      img {
-        width: 4rem;
-        margin-right: 2.4rem;
-      }
+    span {
+      font: 1.6rem Poppins;
+      color: ${({ theme }) => theme.colors.textInPrimary};
+      font-weight: 400;
+      margin-left: 1.6rem;
     }
 
-    a.find-service {
-      background: ${(props) => props.theme.colors.primaryLighter};
+    transition: opacity 0.3s;
 
-      &:hover {
-        background: ${(props) => props.theme.colors.primaryLight};
-      }
-    }
-
-    a.offer-services {
-      background: ${(props) => props.theme.colors.secondary};
-
-      &:hover {
-        background: ${(props) => props.theme.colors.secondaryDark};
-      }
+    &:hover {
+      opacity: 0.8;
     }
   }
 
-  .total-connections {
-    font-size: 1.4rem;
+  button {
+    border: none;
+    height: 4rem;
+    width: 4rem;
+    border-radius: 0.8rem;
+
+    outline: none;
+
     display: flex;
     align-items: center;
     justify-content: center;
 
+    background: ${({ theme }) => theme.colors.primaryDark};
+
+    transition: background 0.3s;
+
+    &:hover {
+      background: ${({ theme }) => darken(0.03, theme.colors.primaryDark)};
+    }
+  }
+`
+
+export const LogoContainer = styled.div`
+  max-width: 116.8rem;
+  width: 100%;
+  padding: 0 2.4rem 5.6rem 2.4rem;
+  margin-top: 6.4rem;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h1 {
+      color: ${({ theme }) => theme.colors.textInPrimary};
+      font-family: Poppins;
+      font-weight: 400;
+      max-width: 32rem;
+      text-align: center;
+    }
+  }
+
+  img {
+    width: 100%;
+  }
+
+  @media (min-width: 900px) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 0;
+    margin: auto 0;
+
+    div {
+      align-items: flex-start;
+      h1 {
+        text-align: left;
+      }
+    }
+
+    > img {
+      width: initial;
+    }
+  }
+`
+
+export const Footer = styled.footer`
+  max-width: 116.8rem;
+  width: 100%;
+  padding: 5.6rem 2.4rem 5.6rem 2.4rem;
+  margin: 0 auto;
+
+  @media (min-width: 900px) {
+    display: flex;
+    justify-content: space-between;
+    margin-top: auto;
+  }
+`
+
+export const InfoContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  h2 {
+    font: 2rem Poppins;
+    font-weight: 400;
+    strong {
+      display: block;
+    }
+  }
+
+  small {
+    max-width: 14rem;
+    font: 1.2rem Poppins;
+    color: ${({ theme }) => theme.colors.textComplement};
+    text-align: right;
+    line-height: 2.6rem;
+
     img {
       margin-left: 0.8rem;
     }
+  }
+
+  @media (min-width: 900px) {
+    width: 48%;
+    align-items: center;
+  }
+`
+
+export const ButtonsContainer = styled.div`
+  display: flex;
+  margin-top: 2.4rem;
+
+  ${ButtonContainer} {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: ${({ theme }) => theme.colors.primary};
+    height: 10.4rem;
+    padding: 0 2.4rem;
+
+    font: 2.4rem Archivo;
+    font-weight: 700;
+
+    img {
+      margin-right: 2.4rem;
+    }
+
+    &:hover {
+      background: ${({ theme }) => theme.colors.primaryDark};
+    }
+  }
+
+  ${ButtonContainer} + ${ButtonContainer} {
+    background: ${({ theme }) => theme.colors.secondary};
+    margin-left: 1.6rem;
+
+    &:hover {
+      background: ${({ theme }) => theme.colors.secondaryDark};
+    }
+  }
+
+  @media (min-width: 900px) {
+    margin-top: 0;
+    width: 46%;
   }
 `

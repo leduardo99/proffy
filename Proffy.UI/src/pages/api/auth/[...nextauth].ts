@@ -37,7 +37,7 @@ export default NextAuth({
     session: async (session: Session, user: any) => {
       session.jwt = user.jwt
       session.id = user.id
-      session.user.image = user.picture.url
+      session.user.image = user?.picture?.url || null
 
       return Promise.resolve(session)
     },

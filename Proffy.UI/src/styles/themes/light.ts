@@ -1,4 +1,7 @@
-export default {
+import { CustomTheme } from 'styled-components'
+
+const lightTheme: CustomTheme = {
+  title: 'light',
   colors: {
     background: '#F0F0F7',
     primaryLighter: '#9871F5',
@@ -22,4 +25,6 @@ export default {
     boxFooter: '#FAFAFC',
     error: '#e33d3d'
   }
-} as const
+}
+
+export default lightTheme
