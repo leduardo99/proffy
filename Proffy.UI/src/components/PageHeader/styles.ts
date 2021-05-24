@@ -1,47 +1,74 @@
 import styled from 'styled-components'
-import { up } from 'styled-breakpoints'
 
-export const Container = styled.header`
+export const HeaderContainer = styled.header`
   display: flex;
   flex-direction: column;
-  background-color: ${(props) => props.theme.colors.primary};
+  background: ${({ theme }) => theme.colors.primary};
 
-  ${up('md')} {
-    min-height: 340px;
+  @media (min-width: 700px) {
+    height: 340px;
+  }
+`
 
-    .header-content {
-      flex: 1;
-      max-width: 740px;
-      margin: 0 auto;
-      padding-bottom: 48px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-self: flex-start;
+export const TopBarContainer = styled.div`
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: ${({ theme }) => theme.colors.primary};
+  padding: 1.6rem 0;
 
-      strong {
-        max-width: 350px;
-      }
+  > img {
+    height: 1.6rem;
+  }
+
+  a {
+    height: 3.2rem;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 0.6;
     }
   }
 
-  .header-content {
-    width: 90%;
-    position: relative;
-    margin: 7.2rem auto;
+  @media (min-width: 700px) {
+    max-width: 1100px;
+  }
+`
+
+export const HeaderContent = styled.div`
+  width: 90%;
+  margin: 0 auto;
+  position: relative;
+  margin: 3.2rem auto;
+
+  strong {
+    font: 700 3.6rem Archivo;
+    line-height: 4.2rem;
+    color: ${({ theme }) => theme.colors.titleInPrimary};
+  }
+
+  p {
+    max-width: 30rem;
+    font-size: 1.6rem;
+    line-height: 2.6rem;
+    color: ${({ theme }) => theme.colors.textInPrimary};
+    margin-top: 2.4rem;
+  }
+
+  @media (min-width: 700px) {
+    flex: 1;
+    max-width: 740px;
+    margin: 0 auto;
+    padding-bottom: 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
 
     strong {
-      font: 700 3.6rem Archivo;
-      line-height: 4.2rem;
-      color: ${(props) => props.theme.colors.titleInPrimary};
-    }
-
-    p {
-      max-width: 30rem;
-      font-size: 1.6rem;
-      line-height: 2.6rem;
-      color: ${(props) => props.theme.colors.textInPrimary};
-      margin-top: 2.4rem;
+      max-width: 350px;
     }
   }
 `

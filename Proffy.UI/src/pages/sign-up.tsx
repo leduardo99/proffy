@@ -3,7 +3,7 @@ import FormSignUp from 'components/FormSignUp'
 
 export default function SignIn() {
   return (
-    <Auth title="Realizar Cadastro" layout="reverse">
+    <Auth layout="reverse">
       <FormSignUp />
     </Auth>
   )

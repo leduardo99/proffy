@@ -1,49 +1,76 @@
-import { useField } from '@unform/core'
-import React, { InputHTMLAttributes, useEffect, useRef } from 'react'
+import React, {
+  InputHTMLAttributes,
+  useRef,
+  useCallback,
+  useState,
+  useEffect
+} from 'react'
 
-import * as S from './styles'
+import { useField } from '@unform/core'
+
+import { InputContainer, Label, SInput } from './styles'
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  label?: string
   name: string
-  stacked?: boolean
+  label?: string
 }
 
-const Input: React.FunctionComponent<InputProps> = ({
-  label,
-  stacked = false,
+const Input: React.FC<InputProps> = ({
   name,
+  placeholder,
+  disabled,
+  onChange,
   ...rest
 }) => {
   const inputRef = useRef<HTMLInputElement>(null)
-  const { fieldName, defaultValue, registerField } = useField(name)
+  const [isField, setIsField] = useState(false)
+  const {
+    fieldName,
+    defaultValue = '',
+    error,
+    registerField,
+    clearError
+  } = useField(name)
 
   useEffect(() => {
     registerField({
       name: fieldName,
-      ref: inputRef,
-      getValue: (ref) => {
-        return ref.current.value
-      },
-      setValue: (ref, value) => {
-        ref.current.value = value
-      },
-      clearValue: (ref) => {
-        ref.current.value = ''
-      }
+      ref: inputRef.current,
+      path: 'value'
     })
   }, [fieldName, registerField])
 
+  const handleOnBlur = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      onChange && onChange(e)
+
+      if (inputRef.current?.value) {
+        setIsField(true)
+      } else {
+        setIsField(false)
+      }
+    },
+    [onChange]
+  )
+
   return (
-    <S.Container stacked={stacked}>
-      {label && <label htmlFor={fieldName}>{label}</label>}
-      <input
-        id={fieldName}
+    <InputContainer isDisabled={disabled} isField={isField} isErrored={!!error}>
+      <Label isDisabled={disabled} isField={isField} htmlFor={name}>
+        {placeholder}
+      </Label>
+      <SInput
+        isField={isField}
+        onChange={handleOnBlur}
+        onFocus={clearError}
         ref={inputRef}
+        type="text"
         defaultValue={defaultValue}
+        id={name}
+        placeholder={placeholder}
+        disabled={disabled}
         {...rest}
       />
-    </S.Container>
+    </InputContainer>
   )
 }
 

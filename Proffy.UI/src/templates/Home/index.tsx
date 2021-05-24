@@ -1,14 +1,14 @@
 import Link from 'next/link'
-import LogoContainer from 'components/LogoContainer'
-import TopBarContainer from 'components/TopBarContainer'
+// import LogoContainer from 'components/LogoContainer'
+// import TopBarContainer from 'components/TopBarContainer'
 
 import * as S from './styles'
 export default function Home() {
   return (
     <S.Container>
-      <TopBarContainer profile />
+      {/* <TopBarContainer profile /> */}
       <div id="page-landing-content" className="container">
-        <LogoContainer background={false} />
+        {/* <LogoContainer background={false} /> */}
 
         <img
           src="img/landing.svg"

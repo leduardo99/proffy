@@ -9,6 +9,7 @@ import Input from 'components/Input'
 import Button from 'components/Button'
 
 import * as S from './styles'
+import CheckBox from './CheckBox'
 
 interface FormData {
   email: string
@@ -32,27 +33,46 @@ const FormSignIn: React.FC = () => {
   }
 
   return (
-    <S.Container onSubmit={handleSubmit}>
-      <Input placeholder="Email" name="email" />
-      <Input placeholder="Senha" type="password" name="password" />
+    <>
+      <S.Form onSubmit={handleSubmit}>
+        <h1>Fazer Login</h1>
 
-      <Button type="submit">Entrar</Button>
+        <Input placeholder="E-mail" name="email" autoFocus />
+        <Input placeholder="Senha" type="password" name="password" />
+
+        <S.OptionsBlock>
+          <CheckBox
+            // onChange={(e) => setIsRememberMe(e.target.checked)}
+            name="remember"
+            // disabled={loading}
+            // defaultChecked={getIsRememberMe()}
+          />
+
+          <a href="/">Esqueci minha senha</a>
+        </S.OptionsBlock>
+
+        <Button
+          // isLoading={loading}
+          // disabled={loading || !submitAvailable}
+          type="submit"
+        >
+          Entrar
+        </Button>
+      </S.Form>
 
       <S.Footer>
-        <div className="footer-container">
-          <div className="signup">
-            <p>Não tem conta?</p>
-            <Link href="/sign-up">
-              <a>Cadastre-se</a>
-            </Link>
-          </div>
-          <span>
-            É de graça
-            <FaHeart size={20} />
-          </span>
-        </div>
+        <span>
+          Não tem conta? <br />
+          <Link href="/sign-up">
+            <a>Cadastre-se</a>
+          </Link>
+        </span>
+
+        <small>
+          É de graça <img src="img/icons/purple-heart.svg" />
+        </small>
       </S.Footer>
-    </S.Container>
+    </>
   )
 }
 

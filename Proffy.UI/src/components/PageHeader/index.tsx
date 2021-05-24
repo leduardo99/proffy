@@ -1,36 +1,38 @@
-import React, { CSSProperties } from 'react'
-import TopBarContainer from 'components/TopBarContainer'
+import React from 'react'
+import Link from 'next/link'
 
-import * as S from './styles'
+import { HeaderContainer, TopBarContainer, HeaderContent } from './styles'
 
 interface PageHeaderProps {
-  title?: string
+  title: string
   description?: string
-  background?: string
-  page?: string
 }
 
-const PageHeader: React.FunctionComponent<PageHeaderProps> = ({
+const PageHeader: React.FC<PageHeaderProps> = ({
   title,
   description,
-  background,
-  page,
   children
 }) => {
-  const headerContentStyle = {
-    backgroundImage: `url(${background})`,
-    backgroundSize: 'contain'
-  }
-
   return (
-    <S.Container style={(background as CSSProperties) && headerContentStyle}>
-      <TopBarContainer title={page} />
-      <div className="header-content">
+    <HeaderContainer>
+      <TopBarContainer>
+        <Link href="/">
+          <a>
+            <img src="img/icons/back.svg" alt="Voltar" />
+          </a>
+        </Link>
+
+        <img src="img/logo.svg" alt="Proffy" />
+      </TopBarContainer>
+
+      <HeaderContent>
         <strong>{title}</strong>
+
         {description && <p>{description}</p>}
+
         {children}
-      </div>
-    </S.Container>
+      </HeaderContent>
+    </HeaderContainer>
   )
 }
 

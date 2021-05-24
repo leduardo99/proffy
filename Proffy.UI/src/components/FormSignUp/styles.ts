@@ -1,41 +1,43 @@
 import styled from 'styled-components'
 import { down } from 'styled-breakpoints'
 
-import { Form as UnForm } from '@unform/web'
+import { Form as Unform } from '@unform/web'
 
-export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-`
+import { InputContainer } from 'components/Input/styles'
 
-export const Form = styled(UnForm)`
-  margin-top: 40px;
-
+export const Form = styled(Unform)`
   width: 100%;
+  max-width: 350px;
 
-  .signin {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+  a {
+    margin-bottom: 1.6rem;
+    display: block;
+  }
 
-    margin-top: 30px;
+  h1 {
+    font: 3.6rem Poppins;
+    font-weight: 600;
+    color: ${({ theme }) => theme.colors.textTitle};
+    margin-bottom: 2.4rem;
+  }
 
-    font: 400 1.6rem Poppins;
+  span {
+    font-size: 1.6rem;
+    color: ${({ theme }) => theme.colors.textBase};
+    margin-bottom: 4rem;
+    line-height: 2.6rem;
+    display: block;
+  }
 
-    ${down('lg')} {
-      justify-content: space-around;
-    }
+  ${InputContainer} {
+    border-radius: 0.8rem 0.8rem 0 0;
+  }
 
-    a {
-      color: ${(props) => props.theme.colors.primary};
-      transition: color 0.2s;
+  ${InputContainer} + ${InputContainer} {
+    border-radius: 0;
+  }
 
-      &:hover {
-        color: ${(props) => props.theme.colors.primaryDarker};
-      }
-    }
+  ${InputContainer} + ${InputContainer} + ${InputContainer} + ${InputContainer} {
+    border-radius: 0 0 0.8rem 0.8rem;
   }
 `

@@ -1,16 +1,17 @@
 import React, { useRef } from 'react'
-import Button from 'components/Button'
-import Input from 'components/Input'
 import Link from 'next/link'
 import { toast } from 'react-toastify'
+import { FormHandles, SubmitHandler } from '@unform/core'
 
 import { useMutation } from '@apollo/client'
 import { signIn } from 'next-auth/client'
 
 import { MUTATION_REGISTER } from 'graphql/mutations/register'
 
+import Input from 'components/Input'
+import Button from 'components/Button'
+
 import * as S from './styles'
-import { FormHandles, SubmitHandler } from '@unform/core'
 
 interface FormData {
   name: string
@@ -44,23 +45,38 @@ const FormSignUp: React.FC = () => {
   }
 
   return (
-    <S.Container>
-      <S.Form ref={formRef} onSubmit={handleSubmit}>
-        <Input name="name" placeholder="Nome" />
-        <Input name="surname" placeholder="Sobrenome" />
-        <Input name="email" placeholder="Email" type="email" />
-        <Input name="password" placeholder="Senha" type="password" />
+    <S.Form ref={formRef} onSubmit={handleSubmit}>
+      <Link href="/sign-in">
+        <a>
+          <img src="img/icons/back.svg" alt="Back Button" />
+        </a>
+      </Link>
 
-        <Button disabled={loading}>Concluir cadastro</Button>
+      <h1>Cadastro</h1>
+      <span>
+        Preencha os dados abaixo
+        <br /> para começar.
+      </span>
 
-        <div className="signin">
-          <p>Já possui conta?</p>
-          <Link href="/sign-in">
-            <a>Entre agora</a>
-          </Link>
-        </div>
-      </S.Form>
-    </S.Container>
+      <Input name="name" placeholder="Nome" autoFocus disabled={loading} />
+      <Input name="surname" placeholder="Sobrenome" disabled={loading} />
+      <Input
+        name="email"
+        placeholder="E-mail"
+        type="email"
+        disabled={loading}
+      />
+      <Input
+        name="password"
+        placeholder="Senha"
+        type="password"
+        disabled={loading}
+      />
+
+      <Button disabled={loading} isLoading={loading}>
+        Concluir cadastro
+      </Button>
+    </S.Form>
   )
 }
 

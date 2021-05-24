@@ -1,86 +1,62 @@
 import styled, { css } from 'styled-components'
 import { up } from 'styled-breakpoints'
 
-interface WrapperProps {
+interface Props {
   layout: 'normal' | 'reverse'
 }
 
-export const Wrapper = styled.main<WrapperProps>`
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
-  grid-template-areas:
-    'banner'
-    'content';
-
+export const Container = styled.div<Props>`
   height: 100vh;
+  display: flex;
+  flex-direction: column;
 
-  ${up('lg')} {
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas: ${(props) =>
-      props.layout === 'normal' ? "'banner content'" : "'content banner'"};
+  align-items: stretch;
+  background: ${({ theme }) => theme.colors.primary};
+
+  @media (min-width: 730px) {
+    flex-direction: ${(props) =>
+      props.layout === 'normal' ? 'row' : 'row-reverse'};
   }
 `
 
-export const BannerBlock = styled.div`
-  grid-area: banner;
-
+export const Content = styled.div`
   display: flex;
-
   flex-direction: column;
-
   align-items: center;
   justify-content: center;
-
-  background: url('img/squared-background.svg');
-  background-color: ${(props) => props.theme.colors.primary};
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-
   width: 100%;
   height: 100%;
+  background: ${({ theme }) => theme.colors.background};
 
-  padding: 30px;
+  padding: 0 2.4rem;
+
+  @media (min-width: 730px) {
+    width: 45%;
+  }
 `
 
-export const Subtitle = styled.h3`
-  ${({ theme }) => css`
-    font-size: ${theme.font.sizes.xxlarge};
-    font-weight: ${theme.font.light};
-    margin-top: ${theme.spacings.xxsmall};
-    strong {
-      color: ${theme.colors.primary};
-    }
-  `}
-`
+export const Info = styled.div`
+  flex: 1;
+  background: url('img/background-asset.svg') no-repeat center;
 
-export const Footer = styled.p`
-  ${({ theme }) => css`
-    font-size: ${theme.font.sizes.xsmall};
-    text-align: center;
-    align-self: end;
-  `}
-`
+  svg {
+    max-width: 33.5rem;
+    width: 100%;
+  }
 
-export const Content = styled.div`
-  grid-area: content;
+  h2 {
+    color: ${({ theme }) => theme.colors.textInPrimary};
+    font-weight: 400;
+  }
 
-  ${({ theme }) => css`
-    background: ${theme.colors.background};
-    display: grid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 25rem;
 
+  @media (min-width: 730px) {
     align-items: center;
     justify-content: center;
-  `}
-`
-
-export const ContentWrapper = styled.div`
-  padding: 15px;
-
-  width: 30rem;
-
-  ${up('md')} {
-    width: 36rem;
+    flex-direction: column;
   }
 `

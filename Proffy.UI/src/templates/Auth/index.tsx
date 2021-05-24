@@ -1,29 +1,24 @@
-import Heading from 'components/Heading'
-
 import * as S from './styles'
 
 type AuthProps = {
-  title: string
   children: React.ReactNode
   layout?: 'normal' | 'reverse'
 }
 
-const Auth = ({ title, layout = 'normal', children }: AuthProps) => (
-  <S.Wrapper layout={layout}>
-    <S.BannerBlock>
-      <img src="img/logo.svg" />
-    </S.BannerBlock>
+const Auth = ({ layout = 'normal', children }: AuthProps) => (
+  <S.Container layout={layout}>
+    <S.Info>
+      <div>
+        <img src="img/logo.svg" />
+        <h2>
+          Sua plataforma de <br />
+          estudos online.
+        </h2>
+      </div>
+    </S.Info>
 
-    <S.Content>
-      <S.ContentWrapper>
-        <Heading lineColor="secondary" lineLeft>
-          {title}
-        </Heading>
-
-        {children}
-      </S.ContentWrapper>
-    </S.Content>
-  </S.Wrapper>
+    <S.Content>{children}</S.Content>
+  </S.Container>
 )
 
 export default Auth

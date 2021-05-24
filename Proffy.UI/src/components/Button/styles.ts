@@ -1,32 +1,26 @@
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
-export const Wrapper = styled.button`
-  ${({ theme }) => css`
-    display: block;
-    width: 100%;
-    border: 0;
-    outline: 0;
-    border-radius: 0.8rem;
-    padding: 1.8rem;
-    line-height: 2.7rem;
-    font: 500 1.6rem Archivo;
-    margin-top: 4rem;
-    cursor: pointer;
+export const ButtonContainer = styled.button`
+  border: none;
+  margin-top: 4rem;
+  width: 100%;
+  background: ${({ theme }) => theme.colors.secondary};
 
-    background-color: ${theme.colors.secondary};
-    color: ${theme.colors.titleInPrimary};
+  height: 5.6rem;
+  border-radius: 0.8rem;
+  font: 1.6rem Archivo;
+  color: ${({ theme }) => theme.colors.buttonText};
+  outline: none;
 
-    transition: background-color 0.2s;
+  transition: background 0.3s;
 
-    :hover {
-      background-color: ${theme.colors.secondaryDark};
-    }
+  &:hover {
+    background: ${({ theme }) => theme.colors.secondaryDark};
+  }
 
-    &:disabled,
-    &[disabled] {
-      background-color: ${theme.colors.disabledButton};
-      color: ${theme.colors.textComplement};
-      cursor: default;
-    }
-  `}
+  &:disabled {
+    background: ${({ theme }) => theme.colors.buttonNotAvailable};
+    color: ${({ theme }) => theme.colors.textComplement};
+    cursor: not-allowed;
+  }
 `

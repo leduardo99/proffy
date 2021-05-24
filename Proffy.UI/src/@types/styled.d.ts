@@ -10,7 +10,7 @@ declare module 'styled-components' {
     primaryLighter: string
     primaryLight: string
     primary: string
-    primaryLdark: string
+    primaryDark: string
     primaryDarker: string
     secondary: string
     secondaryDark: string
@@ -21,11 +21,12 @@ declare module 'styled-components' {
     textBase: string
     lineInWhite: string
     inputBackground: string
+    inputPlaceholder: string
     buttonText: string
+    buttonNotAvailable: string
     boxBase: string
     boxFooter: string
-    disabledButton: string
-    errorBox: string
+    error: string
   }
 
   export interface DefaultTheme extends Theme {
