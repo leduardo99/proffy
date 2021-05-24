@@ -1,15 +1,14 @@
-import React from 'react'
+import React, { useState, useRef } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { signIn } from 'next-auth/client'
-import { FaHeart } from 'react-icons/fa'
 import { SubmitHandler } from '@unform/core'
 
 import Input from 'components/Input'
 import Button from 'components/Button'
 
 import * as S from './styles'
-import CheckBox from './CheckBox'
+import { toast } from 'react-toastify'
 
 interface FormData {
   email: string
@@ -17,10 +16,15 @@ interface FormData {
 }
 
 const FormSignIn: React.FC = () => {
+  const [loading, setLoading] = useState(false)
+  const formRef = useRef(null)
+
   const routes = useRouter()
   const { push, query } = routes
 
   const handleSubmit: SubmitHandler<FormData> = async (values) => {
+    setLoading(true)
+
     const result = await signIn('credentials', {
       ...values,
       redirect: false,
@@ -30,32 +34,32 @@ const FormSignIn: React.FC = () => {
     if (result?.url) {
       return push(result?.url)
     }
+
+    toast.error('Credenciais inválidas')
+
+    setLoading(false)
   }
 
   return (
     <>
-      <S.Form onSubmit={handleSubmit}>
+      <S.Form ref={formRef} onSubmit={handleSubmit}>
         <h1>Fazer Login</h1>
 
-        <Input placeholder="E-mail" name="email" autoFocus />
-        <Input placeholder="Senha" type="password" name="password" />
+        <Input placeholder="E-mail" name="email" autoFocus disabled={loading} />
+        <Input
+          placeholder="Senha"
+          type="password"
+          name="password"
+          disabled={loading}
+        />
 
         <S.OptionsBlock>
-          <CheckBox
-            // onChange={(e) => setIsRememberMe(e.target.checked)}
-            name="remember"
-            // disabled={loading}
-            // defaultChecked={getIsRememberMe()}
-          />
-
-          <a href="/">Esqueci minha senha</a>
+          <Link href="/forgot-password">
+            <a>Esqueci minha senha</a>
+          </Link>
         </S.OptionsBlock>
 
-        <Button
-          // isLoading={loading}
-          // disabled={loading || !submitAvailable}
-          type="submit"
-        >
+        <Button isLoading={loading} disabled={loading} type="submit">
           Entrar
         </Button>
       </S.Form>

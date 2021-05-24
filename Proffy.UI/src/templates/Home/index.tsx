@@ -32,7 +32,7 @@ export default function Home() {
         <S.LogoContainer>
           <div>
             <img src="img/logo.svg" alt="Proffy" />
-            <h1>Sua plataforma de estudos online.</h1>
+            <h1>Sua plataforma para encontrar o serviço ideal.</h1>
           </div>
 
           <img src="img/landing.svg" alt="Landing" />

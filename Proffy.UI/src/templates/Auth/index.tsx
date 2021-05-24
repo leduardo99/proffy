@@ -11,8 +11,7 @@ const Auth = ({ layout = 'normal', children }: AuthProps) => (
       <div>
         <img src="img/logo.svg" />
         <h2>
-          Sua plataforma de <br />
-          estudos online.
+          Sua plataforma para encontrar o <br /> serviço ideal.
         </h2>
       </div>
     </S.Info>

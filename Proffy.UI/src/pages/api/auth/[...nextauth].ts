@@ -1,5 +1,6 @@
 import NextAuth, { Session } from 'next-auth'
 import Providers from 'next-auth/providers'
+import { toast } from 'react-toastify'
 
 type AuthorizeProps = {
   email: string
