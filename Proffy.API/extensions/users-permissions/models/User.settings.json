@@ -76,6 +76,9 @@
       "plugin": "upload",
       "required": false,
       "pluginOptions": {}
+    },
+    "user_profile": {
+      "model": "user-profile"
     }
   }
 }

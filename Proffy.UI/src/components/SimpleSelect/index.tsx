@@ -1,32 +1,25 @@
 import React, { useRef, useEffect, useCallback, useMemo } from 'react'
 import { useTheme } from 'styled-components'
-import Select, {
+import {
   OptionTypeBase,
-  Props as SelectProps,
   Theme as SelectTheme,
   StylesConfig as SelectStyles
 } from 'react-select'
+import Select, { Props as CreatableProps } from 'react-select/creatable'
 import { useField } from '@unform/core'
 
 import { LabelContainer } from './styles'
 
-interface Props extends SelectProps<OptionTypeBase> {
+interface Props extends CreatableProps<OptionTypeBase, false> {
   name: string
   label?: string
 }
 
-export default function SimpleSelect({
-  name,
-  label,
-  defaultValue: RSdefaultValue,
-  ...rest
-}: Props) {
+export default function SimpleSelect({ name, label, options, ...rest }: Props) {
   const selectRef = useRef<Select<OptionTypeBase>>(null)
-  const {
-    fieldName,
-    defaultValue = RSdefaultValue,
-    registerField
-  } = useField(name)
+
+  const { fieldName, defaultValue, registerField } = useField(name)
+
   const appTheme = useTheme()
 
   const selectStyles = useMemo<SelectStyles<OptionTypeBase, false>>(() => {
@@ -73,23 +66,19 @@ export default function SimpleSelect({
     registerField({
       name: fieldName,
       ref: selectRef.current,
-      getValue: (ref: any) => {
+      getValue: (ref) => {
         if (rest.isMulti) {
           if (!ref.state.value) {
             return []
           }
           return ref.state.value.map((option: OptionTypeBase) => option.value)
         }
+
         if (!ref.state.value) {
           return ''
         }
+
         return ref.state.value.value
-      },
-      setValue: (ref: any, value: any) => {
-        ref.state.value = value
-      },
-      clearValue: (ref: Select<OptionTypeBase>) => {
-        ref.select.clearValue()
       }
     })
   }, [fieldName, registerField, rest.isMulti])
@@ -99,11 +88,15 @@ export default function SimpleSelect({
       {label && <small>{label}</small>}
 
       <Select
-        defaultValue={defaultValue}
+        defaultValue={
+          defaultValue &&
+          options.find((option) => option.value === defaultValue)
+        }
         ref={selectRef}
         theme={themeProps}
         classNamePrefix="react-select"
         styles={selectStyles}
+        options={options}
         {...rest}
       />
     </LabelContainer>

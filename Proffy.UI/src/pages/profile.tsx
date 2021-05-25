@@ -22,10 +22,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     return { props: {} }
   }
 
-  const { data } = await apolloClient.query<
-    QueryProfileMe,
-    QueryProfileMeVariables
-  >({
+  const {
+    data: { user, areas }
+  } = await apolloClient.query<QueryProfileMe, QueryProfileMeVariables>({
     query: QUERY_PROFILE_ME,
     variables: {
       identifier: session?.id as string
@@ -33,6 +32,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   })
 
   return {
-    props: { session, user: { ...data.user } }
+    props: { session, user, areas }
   }
 }

@@ -3,6 +3,7 @@ import { Form as Unform } from '@unform/web'
 
 import { LabelContainer as LabelTextAreaContainer } from 'components/TextArea/styles'
 import { LabelContainer as LabelInputWithLabelContainer } from 'components/InputWithLabel/styles'
+import { LabelContainer as LabelMaskedInputContainer } from 'components/MaskedInput/styles'
 import { LabelContainer as LabelSimpleSelectContainer } from 'components/SimpleSelect/styles'
 import { ButtonContainer } from 'components/Button/styles'
 
@@ -102,11 +103,19 @@ export const InputGroup = styled.div`
     margin-top: 1.6rem;
   }
 
+  ${LabelSimpleSelectContainer} + ${LabelMaskedInputContainer} {
+    margin-top: 1.6rem;
+  }
+
+  ${LabelInputWithLabelContainer} + ${LabelMaskedInputContainer} {
+    margin-top: 1.6rem;
+  }
+
   @media (min-width: 700px) {
     display: flex;
     justify-content: space-between;
 
-    ${LabelInputWithLabelContainer} {
+    ${LabelInputWithLabelContainer}, ${LabelMaskedInputContainer} {
       margin: 0;
     }
 
@@ -114,7 +123,25 @@ export const InputGroup = styled.div`
       margin-left: 3.2rem;
     }
 
+    ${LabelMaskedInputContainer} + ${LabelMaskedInputContainer} {
+      margin-left: 3.2rem;
+    }
+
+    ${LabelInputWithLabelContainer} + ${LabelMaskedInputContainer} {
+      margin-left: 3.2rem;
+    }
+
     ${LabelSimpleSelectContainer} + ${LabelInputWithLabelContainer} {
+      margin-top: 0;
+      margin-left: 3.2rem;
+    }
+
+    ${LabelSimpleSelectContainer} + ${LabelMaskedInputContainer} {
+      margin-top: 0;
+      margin-left: 3.2rem;
+    }
+
+    ${LabelInputWithLabelContainer} + ${LabelMaskedInputContainer} {
       margin-top: 0;
       margin-left: 3.2rem;
     }

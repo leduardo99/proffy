@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef } from 'react'
 import Image from 'next/image'
 import { Scope } from '@unform/core'
 
@@ -10,10 +10,23 @@ import TextArea from 'components/TextArea'
 
 import * as S from './styles'
 import { getImageUrl } from 'utils/getImageUrl'
+import { ProfileFragment_user_profile } from 'graphql/generated/ProfileFragment'
+import MaskedInput from 'components/MaskedInput'
 
 type UserImage = {
   url: string
   hash: string
+}
+
+export type Area = {
+  id: string
+  name: string
+}
+
+export type UserProfile = {
+  whatsapp: string | null
+  bio: string | null
+  area: Area | null
 }
 
 export type ProfileProps = {
@@ -23,23 +36,34 @@ export type ProfileProps = {
     name: string
     surname: string
     image?: Partial<UserImage>
+    user_profile: UserProfile
   }
+  areas: Area[]
 }
 
-export default function Profile({ user }: Partial<ProfileProps>) {
+export default function Profile({ user, areas }: Partial<ProfileProps>) {
   const formRef = useRef(null)
 
-  function handleSubmit() {
-    // TODO
+  function handleSubmit(data) {
+    console.log(data)
   }
 
-  const initialFormData = useMemo(() => {
-    return {
-      name: user?.name,
-      surname: user?.surname,
-      email: user?.email
+  const initialFormData = useMemo(() => ({ ...user }), [user])
+
+  useEffect(() => console.log(initialFormData), [initialFormData])
+
+  const areasOptions = useMemo(() => {
+    if (areas.length !== 0) {
+      const options = areas.map(({ id, name }) => ({
+        value: id,
+        label: name
+      }))
+
+      return options
     }
-  }, [user])
+
+    return []
+  }, [areas])
 
   return (
     <S.Container>
@@ -75,37 +99,37 @@ export default function Profile({ user }: Partial<ProfileProps>) {
 
           <S.InputGroup>
             <InputWithLabel label="E-mail" name="email" type="email" />
-            <InputWithLabel
+            <MaskedInput
               label="Whatsapp"
-              name="whatsapp"
-              placeholder="(  ) _ ____ ____"
+              name="user_profile.whatsapp"
+              mask="(99) 9 9999-9999"
             />
           </S.InputGroup>
 
           <TextArea
-            name="bio"
+            name="user_profile.bio"
             label="Biografia"
             message="(Máximo 300 caracteres)"
           />
         </S.Block>
 
-        <Scope path="class">
+        <Scope path="user_profile">
           <S.Block>
-            <legend>Sobre a aula</legend>
+            <legend>Sobre sua área de atuação</legend>
             <S.InputGroup>
               <Select
-                name="subject"
-                label="Matéria"
-                placeholder="Selecione uma matéria"
-                // options={subjectOptions}
+                name="area.id"
+                label="Área de atuação"
+                placeholder="Selecione uma opção"
+                options={areasOptions}
                 noOptionsMessage={() => 'Nenhuma opção disponível'}
-                // onChange={handleSubjectSelectChange}
+                // onChange={handleAreaSelectChange}
               />
-              <InputWithLabel label="Custo da sua hora por aula" name="cost" />
             </S.InputGroup>
           </S.Block>
+        </Scope>
 
-          {/* {selectedSubjectValue !== null && (
+        {/* {selectedSubjectValue !== null && (
             <S.Block>
               <legend>
                 Horários disponívies
@@ -138,7 +162,7 @@ export default function Profile({ user }: Partial<ProfileProps>) {
                 ))}
             </S.Block>
           )} */}
-        </Scope>
+        {/* </Scope> */}
       </S.Form>
 
       <S.SubmitContainer>
@@ -150,9 +174,9 @@ export default function Profile({ user }: Partial<ProfileProps>) {
           </p>
         </div>
         <Button
-        // isLoading={loading}
-        // disabled={loading}
-        // onClick={() => formRef.current?.submitForm()}
+          // isLoading={loading}
+          // disabled={loading}
+          onClick={() => formRef.current?.submitForm()}
         >
           Salvar
         </Button>

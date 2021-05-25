@@ -77,6 +77,188 @@ input UsersRegisterInput {
   surname: String!
 }
 
+type Area {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  name: String!
+}
+
+type AreaConnection {
+  values: [Area]
+  groupBy: AreaGroupBy
+  aggregate: AreaAggregator
+}
+
+type AreaAggregator {
+  count: Int
+  totalCount: Int
+}
+
+type AreaGroupBy {
+  id: [AreaConnectionId]
+  created_at: [AreaConnectionCreated_at]
+  updated_at: [AreaConnectionUpdated_at]
+  name: [AreaConnectionName]
+}
+
+type AreaConnectionId {
+  key: ID
+  connection: AreaConnection
+}
+
+type AreaConnectionCreated_at {
+  key: DateTime
+  connection: AreaConnection
+}
+
+type AreaConnectionUpdated_at {
+  key: DateTime
+  connection: AreaConnection
+}
+
+type AreaConnectionName {
+  key: String
+  connection: AreaConnection
+}
+
+input AreaInput {
+  name: String!
+  created_by: ID
+  updated_by: ID
+}
+
+input editAreaInput {
+  name: String
+  created_by: ID
+  updated_by: ID
+}
+
+input createAreaInput {
+  data: AreaInput
+}
+
+type createAreaPayload {
+  area: Area
+}
+
+input updateAreaInput {
+  where: InputID
+  data: editAreaInput
+}
+
+type updateAreaPayload {
+  area: Area
+}
+
+input deleteAreaInput {
+  where: InputID
+}
+
+type deleteAreaPayload {
+  area: Area
+}
+
+type UserProfile {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  whatsapp: String
+  bio: String
+  area: Area
+}
+
+type UserProfileConnection {
+  values: [UserProfile]
+  groupBy: UserProfileGroupBy
+  aggregate: UserProfileAggregator
+}
+
+type UserProfileAggregator {
+  count: Int
+  totalCount: Int
+}
+
+type UserProfileGroupBy {
+  id: [UserProfileConnectionId]
+  created_at: [UserProfileConnectionCreated_at]
+  updated_at: [UserProfileConnectionUpdated_at]
+  whatsapp: [UserProfileConnectionWhatsapp]
+  bio: [UserProfileConnectionBio]
+  area: [UserProfileConnectionArea]
+}
+
+type UserProfileConnectionId {
+  key: ID
+  connection: UserProfileConnection
+}
+
+type UserProfileConnectionCreated_at {
+  key: DateTime
+  connection: UserProfileConnection
+}
+
+type UserProfileConnectionUpdated_at {
+  key: DateTime
+  connection: UserProfileConnection
+}
+
+type UserProfileConnectionWhatsapp {
+  key: String
+  connection: UserProfileConnection
+}
+
+type UserProfileConnectionBio {
+  key: String
+  connection: UserProfileConnection
+}
+
+type UserProfileConnectionArea {
+  key: ID
+  connection: UserProfileConnection
+}
+
+input UserProfileInput {
+  whatsapp: String
+  bio: String
+  area: ID
+  created_by: ID
+  updated_by: ID
+}
+
+input editUserProfileInput {
+  whatsapp: String
+  bio: String
+  area: ID
+  created_by: ID
+  updated_by: ID
+}
+
+input createUserProfileInput {
+  data: UserProfileInput
+}
+
+type createUserProfilePayload {
+  userProfile: UserProfile
+}
+
+input updateUserProfileInput {
+  where: InputID
+  data: editUserProfileInput
+}
+
+type updateUserProfilePayload {
+  userProfile: UserProfile
+}
+
+input deleteUserProfileInput {
+  where: InputID
+}
+
+type deleteUserProfilePayload {
+  userProfile: UserProfile
+}
+
 type I18NLocale {
   id: ID!
   created_at: DateTime!
@@ -427,6 +609,7 @@ type UsersPermissionsUser {
   name: String!
   surname: String!
   image: UploadFile
+  user_profile: UserProfile
 }
 
 type UsersPermissionsUserConnection {
@@ -453,6 +636,7 @@ type UsersPermissionsUserGroupBy {
   name: [UsersPermissionsUserConnectionName]
   surname: [UsersPermissionsUserConnectionSurname]
   image: [UsersPermissionsUserConnectionImage]
+  user_profile: [UsersPermissionsUserConnectionUser_profile]
 }
 
 type UsersPermissionsUserConnectionId {
@@ -515,6 +699,11 @@ type UsersPermissionsUserConnectionImage {
   connection: UsersPermissionsUserConnection
 }
 
+type UsersPermissionsUserConnectionUser_profile {
+  key: ID
+  connection: UsersPermissionsUserConnection
+}
+
 input UserInput {
   username: String
   email: String!
@@ -528,6 +717,7 @@ input UserInput {
   name: String!
   surname: String!
   image: ID
+  user_profile: ID
   created_by: ID
   updated_by: ID
 }
@@ -545,6 +735,7 @@ input editUserInput {
   name: String
   surname: String
   image: ID
+  user_profile: ID
   created_by: ID
   updated_by: ID
 }
@@ -574,7 +765,7 @@ type deleteUserPayload {
   user: UsersPermissionsUser
 }
 
-union Morph = UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsLoginPayload | UserPermissionsPasswordPayload | I18NLocale | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileAggregatorSum | UploadFileAggregatorAvg | UploadFileAggregatorMin | UploadFileAggregatorMax | UploadFileGroupBy | UploadFileConnectionId | UploadFileConnectionCreated_at | UploadFileConnectionUpdated_at | UploadFileConnectionName | UploadFileConnectionAlternativeText | UploadFileConnectionCaption | UploadFileConnectionWidth | UploadFileConnectionHeight | UploadFileConnectionFormats | UploadFileConnectionHash | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionPreviewUrl | UploadFileConnectionProvider | UploadFileConnectionProvider_metadata | deleteFilePayload | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionCreated_at | UsersPermissionsUserConnectionUpdated_at | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole | UsersPermissionsUserConnectionName | UsersPermissionsUserConnectionSurname | UsersPermissionsUserConnectionImage | createUserPayload | updateUserPayload | deleteUserPayload
+union Morph = UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsLoginPayload | UserPermissionsPasswordPayload | Area | AreaConnection | AreaAggregator | AreaGroupBy | AreaConnectionId | AreaConnectionCreated_at | AreaConnectionUpdated_at | AreaConnectionName | createAreaPayload | updateAreaPayload | deleteAreaPayload | UserProfile | UserProfileConnection | UserProfileAggregator | UserProfileGroupBy | UserProfileConnectionId | UserProfileConnectionCreated_at | UserProfileConnectionUpdated_at | UserProfileConnectionWhatsapp | UserProfileConnectionBio | UserProfileConnectionArea | createUserProfilePayload | updateUserProfilePayload | deleteUserProfilePayload | I18NLocale | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileAggregatorSum | UploadFileAggregatorAvg | UploadFileAggregatorMin | UploadFileAggregatorMax | UploadFileGroupBy | UploadFileConnectionId | UploadFileConnectionCreated_at | UploadFileConnectionUpdated_at | UploadFileConnectionName | UploadFileConnectionAlternativeText | UploadFileConnectionCaption | UploadFileConnectionWidth | UploadFileConnectionHeight | UploadFileConnectionFormats | UploadFileConnectionHash | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionPreviewUrl | UploadFileConnectionProvider | UploadFileConnectionProvider_metadata | deleteFilePayload | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionCreated_at | UsersPermissionsUserConnectionUpdated_at | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole | UsersPermissionsUserConnectionName | UsersPermissionsUserConnectionSurname | UsersPermissionsUserConnectionImage | UsersPermissionsUserConnectionUser_profile | createUserPayload | updateUserPayload | deleteUserPayload
 
 input InputID {
   id: ID!
@@ -593,6 +784,12 @@ type AdminUser {
 }
 
 type Query {
+  area(id: ID!, publicationState: PublicationState): Area
+  areas(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [Area!]!
+  areasConnection(sort: String, limit: Int, start: Int, where: JSON): AreaConnection
+  userProfile(id: ID!, publicationState: PublicationState): UserProfile
+  userProfiles(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [UserProfile!]!
+  userProfilesConnection(sort: String, limit: Int, start: Int, where: JSON): UserProfileConnection
   files(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [UploadFile!]!
   filesConnection(sort: String, limit: Int, start: Int, where: JSON): UploadFileConnection
   role(id: ID!, publicationState: PublicationState): UsersPermissionsRole
@@ -606,6 +803,12 @@ type Query {
 }
 
 type Mutation {
+  createArea(input: createAreaInput): createAreaPayload
+  updateArea(input: updateAreaInput): updateAreaPayload
+  deleteArea(input: deleteAreaInput): deleteAreaPayload
+  createUserProfile(input: createUserProfileInput): createUserProfilePayload
+  updateUserProfile(input: updateUserProfileInput): updateUserProfilePayload
+  deleteUserProfile(input: deleteUserProfileInput): deleteUserProfilePayload
   """Delete one file"""
   deleteFile(input: deleteFileInput): deleteFilePayload
   """Create a new role"""
