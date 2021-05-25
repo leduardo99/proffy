@@ -2,7 +2,7 @@ import {
   QueryProfileMe,
   QueryProfileMeVariables
 } from 'graphql/generated/QueryProfileMe'
-import { QUERY_PROFILE_ME } from 'graphql/queries/profile'
+import { QUERY_PROFILE_ME } from 'graphql/queries/user'
 import { GetServerSidePropsContext } from 'next'
 
 import ProfileTemplate, { ProfileProps } from 'templates/Profile'
@@ -26,6 +26,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     data: { user, areas }
   } = await apolloClient.query<QueryProfileMe, QueryProfileMeVariables>({
     query: QUERY_PROFILE_ME,
+    fetchPolicy: 'no-cache',
     variables: {
       identifier: session?.id as string
     }

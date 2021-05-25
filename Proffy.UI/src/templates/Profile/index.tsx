@@ -1,17 +1,29 @@
-import React, { useCallback, useEffect, useMemo, useRef } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
+import { useMutation } from '@apollo/client'
+import { useSession } from 'next-auth/client'
+import { Scope, SubmitHandler } from '@unform/core'
 import Image from 'next/image'
-import { Scope } from '@unform/core'
+import _ from 'lodash'
 
 import Header from 'components/Header'
 import Button from 'components/Button'
 import Select from 'components/SimpleSelect'
 import InputWithLabel from 'components/InputWithLabel'
 import TextArea from 'components/TextArea'
+import MaskedInput from 'components/MaskedInput'
+
+import { getImageUrl } from 'utils/getImageUrl'
+
+import {
+  MUTATION_UPDATE_USER,
+  MUTATION_UPDATE_USER_PROFILE
+} from 'graphql/mutations/user'
 
 import * as S from './styles'
-import { getImageUrl } from 'utils/getImageUrl'
-import { ProfileFragment_user_profile } from 'graphql/generated/ProfileFragment'
-import MaskedInput from 'components/MaskedInput'
+import { QueryProfileMe } from 'graphql/generated/QueryProfileMe'
+import { QUERY_PROFILE_ME } from 'graphql/queries/user'
+import { toast } from 'react-toastify'
+import { MUTATION_CREATE_AREA } from 'graphql/mutations/area'
 
 type UserImage = {
   url: string
@@ -24,33 +36,106 @@ export type Area = {
 }
 
 export type UserProfile = {
+  id: string | null
   whatsapp: string | null
   bio: string | null
   area: Area | null
 }
 
+type User = {
+  id: string
+  email: string
+  name: string
+  surname: string
+  image?: Partial<UserImage>
+  user_profile?: UserProfile
+}
+
 export type ProfileProps = {
-  user: {
-    id: string
-    email: string
-    name: string
-    surname: string
-    image?: Partial<UserImage>
-    user_profile: UserProfile
-  }
+  user: User
   areas: Area[]
 }
 
+interface FormData {
+  id: string
+  email: string
+  name: string
+  surname: string
+  image?: Partial<UserImage>
+  user_profile: UserProfile
+}
+
 export default function Profile({ user, areas }: Partial<ProfileProps>) {
+  const [createdArea, setCreatedArea] = useState({} as Area)
+
+  const [session] = useSession()
   const formRef = useRef(null)
 
-  function handleSubmit(data) {
-    console.log(data)
+  const [updateUser, { loading }] = useMutation(MUTATION_UPDATE_USER, {
+    context: { session }
+  })
+
+  const [updateUserProfile, { loading: loadingProfile }] = useMutation(
+    MUTATION_UPDATE_USER_PROFILE,
+    {
+      context: { session }
+    }
+  )
+
+  const [createArea, { loading: loadingArea }] = useMutation(
+    MUTATION_CREATE_AREA,
+    {
+      context: { session },
+      onCompleted(data) {
+        setCreatedArea(data.createArea.area)
+      }
+    }
+  )
+
+  const handleSubmit: SubmitHandler<FormData> = async ({
+    user_profile,
+    ...rest
+  }) => {
+    const areaExists = areas.find(({ id }) => user_profile.area.id === id)
+
+    if (!areaExists) {
+      await createArea({
+        variables: {
+          input: {
+            data: {
+              name: user_profile.area.id
+            }
+          }
+        }
+      })
+    }
+
+    await updateUserProfile({
+      variables: {
+        input: {
+          where: { id: initialFormData.user_profile.id },
+          data: {
+            ...user_profile,
+            area: user_profile.area.id,
+            whatsapp: user_profile.whatsapp.replace(/[^\d]/g, '')
+          }
+        }
+      }
+    })
+
+    await updateUser({
+      variables: {
+        input: {
+          where: { id: initialFormData.id },
+          data: { ...rest }
+        }
+      }
+    })
+
+    toast.success('Perfil atualizado com sucesso!')
   }
 
   const initialFormData = useMemo(() => ({ ...user }), [user])
-
-  useEffect(() => console.log(initialFormData), [initialFormData])
 
   const areasOptions = useMemo(() => {
     if (areas.length !== 0) {
@@ -81,13 +166,13 @@ export default function Profile({ user, areas }: Partial<ProfileProps>) {
         <h1>
           {user?.name} {user?.surname}
         </h1>
-        <span>Desenvolvedor III</span>
+        <span>{user.user_profile.area?.name}</span>
       </S.Banner>
 
       <S.Form
         initialData={initialFormData}
-        ref={formRef}
         onSubmit={handleSubmit}
+        ref={formRef}
       >
         <S.Block>
           <legend>Seus dados</legend>
@@ -98,7 +183,13 @@ export default function Profile({ user, areas }: Partial<ProfileProps>) {
           </S.InputGroup>
 
           <S.InputGroup>
-            <InputWithLabel label="E-mail" name="email" type="email" />
+            <InputWithLabel
+              label="E-mail"
+              name="email"
+              type="email"
+              disabled
+              readOnly
+            />
             <MaskedInput
               label="Whatsapp"
               name="user_profile.whatsapp"
@@ -123,7 +214,6 @@ export default function Profile({ user, areas }: Partial<ProfileProps>) {
                 placeholder="Selecione uma opção"
                 options={areasOptions}
                 noOptionsMessage={() => 'Nenhuma opção disponível'}
-                // onChange={handleAreaSelectChange}
               />
             </S.InputGroup>
           </S.Block>
@@ -174,8 +264,8 @@ export default function Profile({ user, areas }: Partial<ProfileProps>) {
           </p>
         </div>
         <Button
-          // isLoading={loading}
-          // disabled={loading}
+          isLoading={loading || loadingProfile || loadingArea}
+          disabled={loading || loadingProfile || loadingArea}
           onClick={() => formRef.current?.submitForm()}
         >
           Salvar
