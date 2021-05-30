@@ -6,6 +6,12 @@ export const UserFragment = gql`
     email
     name
     surname
+    whatsapp
+    bio
+    area {
+      id
+      name
+    }
     image {
       url
     }

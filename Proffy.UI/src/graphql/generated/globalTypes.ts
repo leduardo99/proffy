@@ -7,6 +7,12 @@
 // START Enums and Input Objects
 //==============================================================
 
+export interface AreaInput {
+  name: string;
+  created_by?: string | null;
+  updated_by?: string | null;
+}
+
 export interface InputID {
   id: string;
 }
@@ -16,6 +22,10 @@ export interface UsersRegisterInput {
   password: string;
   name: string;
   surname: string;
+}
+
+export interface createAreaInput {
+  data?: AreaInput | null;
 }
 
 export interface editUserInput {
@@ -31,12 +41,6 @@ export interface editUserInput {
   name?: string | null;
   surname?: string | null;
   image?: string | null;
-  user_profile?: string | null;
-  created_by?: string | null;
-  updated_by?: string | null;
-}
-
-export interface editUserProfileInput {
   whatsapp?: string | null;
   bio?: string | null;
   area?: string | null;
@@ -47,11 +51,6 @@ export interface editUserProfileInput {
 export interface updateUserInput {
   where?: InputID | null;
   data?: editUserInput | null;
-}
-
-export interface updateUserProfileInput {
-  where?: InputID | null;
-  data?: editUserProfileInput | null;
 }
 
 //==============================================================

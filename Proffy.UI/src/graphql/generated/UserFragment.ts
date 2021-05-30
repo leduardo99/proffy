@@ -7,6 +7,12 @@
 // GraphQL fragment: UserFragment
 // ====================================================
 
+export interface UserFragment_area {
+  __typename: "Area";
+  id: string;
+  name: string;
+}
+
 export interface UserFragment_image {
   __typename: "UploadFile";
   url: string;
@@ -18,5 +24,8 @@ export interface UserFragment {
   email: string;
   name: string;
   surname: string;
+  whatsapp: string | null;
+  bio: string | null;
+  area: UserFragment_area | null;
   image: UserFragment_image | null;
 }

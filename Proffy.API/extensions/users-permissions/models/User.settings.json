@@ -77,8 +77,15 @@
       "required": false,
       "pluginOptions": {}
     },
-    "user_profile": {
-      "model": "user-profile"
+    "whatsapp": {
+      "type": "string"
+    },
+    "bio": {
+      "type": "text",
+      "maxLength": 300
+    },
+    "area": {
+      "model": "area"
     }
   }
 }

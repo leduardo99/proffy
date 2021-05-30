@@ -26,13 +26,7 @@ const MaskedInput: React.FC<Props> = ({
     registerField({
       name: fieldName,
       ref: inputRef.current,
-      path: 'value',
-      setValue(ref, value: string) {
-        ref.setInputValue(value)
-      },
-      clearValue(ref) {
-        ref.setInputValue('')
-      }
+      path: 'value'
     })
   }, [fieldName, registerField])
 

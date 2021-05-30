@@ -27,6 +27,39 @@ export const Banner = styled.div`
     height: 18rem;
     width: 18rem;
     border-radius: 50%;
+
+    label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+
+      cursor: pointer;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+
+      background: ${({ theme }) => theme.colors.secondary};
+      color: ${({ theme }) => theme.colors.buttonText};
+
+      transition: background 0.3s;
+
+      border: none;
+      outline: none;
+
+      &:hover {
+        background: ${({ theme }) => theme.colors.secondaryDark};
+      }
+
+      &:disabled {
+        background: ${({ theme }) => theme.colors.buttonNotAvailable};
+        color: ${({ theme }) => theme.colors.textComplement};
+        cursor: not-allowed;
+      }
+    }
   }
 
   h1 {

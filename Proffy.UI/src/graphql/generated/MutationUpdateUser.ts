@@ -9,23 +9,15 @@ import { updateUserInput } from "./globalTypes";
 // GraphQL mutation operation: MutationUpdateUser
 // ====================================================
 
-export interface MutationUpdateUser_updateUser_user_image {
-  __typename: "UploadFile";
-  url: string;
-}
-
-export interface MutationUpdateUser_updateUser_user_user_profile_area {
+export interface MutationUpdateUser_updateUser_user_area {
   __typename: "Area";
   id: string;
   name: string;
 }
 
-export interface MutationUpdateUser_updateUser_user_user_profile {
-  __typename: "UserProfile";
-  id: string;
-  whatsapp: string | null;
-  bio: string | null;
-  area: MutationUpdateUser_updateUser_user_user_profile_area | null;
+export interface MutationUpdateUser_updateUser_user_image {
+  __typename: "UploadFile";
+  url: string;
 }
 
 export interface MutationUpdateUser_updateUser_user {
@@ -34,8 +26,10 @@ export interface MutationUpdateUser_updateUser_user {
   email: string;
   name: string;
   surname: string;
+  whatsapp: string | null;
+  bio: string | null;
+  area: MutationUpdateUser_updateUser_user_area | null;
   image: MutationUpdateUser_updateUser_user_image | null;
-  user_profile: MutationUpdateUser_updateUser_user_user_profile | null;
 }
 
 export interface MutationUpdateUser_updateUser {

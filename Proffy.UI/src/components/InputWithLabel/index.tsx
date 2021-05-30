@@ -27,6 +27,7 @@ const InputWithLabel: React.FC<InputProps> = ({
       path: 'value'
     })
   }, [fieldName, registerField])
+
   return (
     <LabelContainer style={labelStyle} className={className}>
       {label}

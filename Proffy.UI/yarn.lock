@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@apollo/client@^3.3.19":
+"@apollo/client@^3.1.3", "@apollo/client@^3.3.19":
   version "3.3.19"
   resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.3.19.tgz#f1172dc9b9d7eae04c8940b047fd3b452ef92d2c"
   integrity sha512-vzljWLPP0GwocfBhUopzDCUwsiaNTtii1eu8qDybAXqwj4/ZhnIM46c6dNQmnVcJpAIFRIsNCOxM4OlMDySJug==
@@ -2822,6 +2822,15 @@
   resolved "https://registry.yarnpkg.com/@types/anymatch/-/anymatch-1.3.1.tgz#336badc1beecb9dacc38bea2cf32adf627a8421a"
   integrity sha512-/+CRPXpBDpo2RK9C68N3b2cOvO0Cf5B9aPijHsoDQTHivnGSObdOF2BRQOYjojWTDy6nQvMjmqRXIxH55VjxxA==
 
+"@types/apollo-upload-client@^14.1.0":
+  version "14.1.0"
+  resolved "https://registry.yarnpkg.com/@types/apollo-upload-client/-/apollo-upload-client-14.1.0.tgz#21a57d7e3f29ff946ba51a53b3d7da46ddd21fbc"
+  integrity sha512-ZLvcEqu+l9qKGdrIpASt/A2WY1ghAC9L3qaoegkiBOccjxvQmWN9liZzVFiuHTuWseWpVbMklqbs/z+KEjll9Q==
+  dependencies:
+    "@apollo/client" "^3.1.3"
+    "@types/extract-files" "*"
+    graphql "^15.3.0"
+
 "@types/aria-query@^4.2.0":
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/@types/aria-query/-/aria-query-4.2.1.tgz#78b5433344e2f92e8b306c06a5622c50c245bf6b"
@@ -2881,6 +2890,11 @@
   version "0.0.39"
   resolved "https://registry.yarnpkg.com/@types/estree/-/estree-0.0.39.tgz#e177e699ee1b8c22d23174caaa7422644389509f"
   integrity sha512-EYNwp3bU+98cpU4lAWYYL7Zz+2gryWH1qbdDTidVd6hkiR6weksdbMadyXKXNPEkQFhXM+hVO9ZygomHXp+AIw==
+
+"@types/extract-files@*":
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/@types/extract-files/-/extract-files-8.1.0.tgz#4728440e1d92a6d1d11ac47f5a10e3f9ce47f044"
+  integrity sha512-ulxvlFU71yLVV3JxdBgryASAIp+aZQuQOpkhU1SznJlcWz0qsJCWHqdJqP6Lprs3blqGS5FH5GbBkU0977+Wew==
 
 "@types/fined@*":
   version "1.1.2"
@@ -3924,6 +3938,13 @@ apollo-server-errors@^2.0.2:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/apollo-server-errors/-/apollo-server-errors-2.5.0.tgz#5d1024117c7496a2979e3e34908b5685fe112b68"
   integrity sha512-lO5oTjgiC3vlVg2RKr3RiXIIQ5pGXBFxYGGUkKDhTud3jMIhs+gel8L8zsEjKaKxkjHhCQAA/bcEfYiKkGQIvA==
+
+apollo-upload-client@^15.0.0:
+  version "15.0.0"
+  resolved "https://registry.yarnpkg.com/apollo-upload-client/-/apollo-upload-client-15.0.0.tgz#02ad5a156c146c13f3a93b9658196e5d73a73fca"
+  integrity sha512-7kyBwflLTqRhfsNIIBc94z1Row3WVWOgLm77izAuG3YJEzUbpy8k4775G40j3xlToSey5c7CR/9NOdoDcQw/xg==
+  dependencies:
+    extract-files "^10.0.0"
 
 apollo-utilities@^1.3.0:
   version "1.3.4"
@@ -6902,6 +6923,11 @@ extglob@^2.0.4:
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
 
+extract-files@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/extract-files/-/extract-files-10.0.0.tgz#228b1da1d910971cf8d7f1ed259653c6001ba5ad"
+  integrity sha512-4KXYOSf8SlMlQCj94Ygy89xIZU2GTs0HU2Nz9mG2/F5TKsHyq/3sDWGjHgHmfw9RhXF3hO+pBKyC6JfIHD52bw==
+
 extract-stack@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/extract-stack/-/extract-stack-1.0.0.tgz#b97acaf9441eea2332529624b732fc5a1c8165fa"
@@ -7797,7 +7823,7 @@ graphql-tag@2.12.4, graphql-tag@^2.10.1, graphql-tag@^2.12.0:
   dependencies:
     tslib "^2.1.0"
 
-"graphql@14.0.2 - 14.2.0 || ^14.3.1 || ^15.0.0", graphql@^15.5.0:
+"graphql@14.0.2 - 14.2.0 || ^14.3.1 || ^15.0.0", graphql@^15.3.0, graphql@^15.5.0:
   version "15.5.0"
   resolved "https://registry.yarnpkg.com/graphql/-/graphql-15.5.0.tgz#39d19494dbe69d1ea719915b578bf920344a69d5"
   integrity sha512-OmaM7y0kaK31NKG31q4YbD2beNYa6jBBKtMFT6gLYJljHLJr42IqJ8KX08u3Li/0ifzTU5HjmoOOrwa5BRLeDA==

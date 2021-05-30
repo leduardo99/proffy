@@ -1,13 +1,14 @@
-import { ApolloClient, HttpLink, NormalizedCacheObject } from '@apollo/client'
+import { ApolloClient, NormalizedCacheObject } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
 import { Session } from 'next-auth'
 import { useMemo } from 'react'
+import { createUploadLink } from 'apollo-upload-client'
 import apolloCache from './apolloCache'
 
 let apolloClient: ApolloClient<NormalizedCacheObject | null>
 
 function createApolloClient(session?: Session | null) {
-  const httpLink = new HttpLink({
+  const httpLink = createUploadLink({
     uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`
   })
 
