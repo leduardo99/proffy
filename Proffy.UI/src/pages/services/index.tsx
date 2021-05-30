@@ -1,7 +1,5 @@
-import ServicesTemplate from 'templates/Services'
-
 const Services = () => {
-  return <ServicesTemplate />
+  return <div />
 }
 
 export default Services
