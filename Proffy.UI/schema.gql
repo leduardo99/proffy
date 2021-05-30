@@ -159,6 +159,219 @@ type deleteAreaPayload {
   area: Area
 }
 
+type Proffer {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  user: UsersPermissionsUser
+  schedules(sort: String, limit: Int, start: Int, where: JSON): [Schedule!]!
+}
+
+type ProfferConnection {
+  values: [Proffer]
+  groupBy: ProfferGroupBy
+  aggregate: ProfferAggregator
+}
+
+type ProfferAggregator {
+  count: Int
+  totalCount: Int
+}
+
+type ProfferGroupBy {
+  id: [ProfferConnectionId]
+  created_at: [ProfferConnectionCreated_at]
+  updated_at: [ProfferConnectionUpdated_at]
+  user: [ProfferConnectionUser]
+}
+
+type ProfferConnectionId {
+  key: ID
+  connection: ProfferConnection
+}
+
+type ProfferConnectionCreated_at {
+  key: DateTime
+  connection: ProfferConnection
+}
+
+type ProfferConnectionUpdated_at {
+  key: DateTime
+  connection: ProfferConnection
+}
+
+type ProfferConnectionUser {
+  key: ID
+  connection: ProfferConnection
+}
+
+input ProfferInput {
+  schedules: [ID]
+  user: ID
+  created_by: ID
+  updated_by: ID
+}
+
+input editProfferInput {
+  schedules: [ID]
+  user: ID
+  created_by: ID
+  updated_by: ID
+}
+
+input createProfferInput {
+  data: ProfferInput
+}
+
+type createProfferPayload {
+  proffer: Proffer
+}
+
+input updateProfferInput {
+  where: InputID
+  data: editProfferInput
+}
+
+type updateProfferPayload {
+  proffer: Proffer
+}
+
+input deleteProfferInput {
+  where: InputID
+}
+
+type deleteProfferPayload {
+  proffer: Proffer
+}
+
+type Schedule {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  from: Int!
+  to: Int!
+  weekDay: Int!
+}
+
+type ScheduleConnection {
+  values: [Schedule]
+  groupBy: ScheduleGroupBy
+  aggregate: ScheduleAggregator
+}
+
+type ScheduleAggregator {
+  count: Int
+  totalCount: Int
+  sum: ScheduleAggregatorSum
+  avg: ScheduleAggregatorAvg
+  min: ScheduleAggregatorMin
+  max: ScheduleAggregatorMax
+}
+
+type ScheduleAggregatorSum {
+  from: Float
+  to: Float
+  weekDay: Float
+}
+
+type ScheduleAggregatorAvg {
+  from: Float
+  to: Float
+  weekDay: Float
+}
+
+type ScheduleAggregatorMin {
+  from: Float
+  to: Float
+  weekDay: Float
+}
+
+type ScheduleAggregatorMax {
+  from: Float
+  to: Float
+  weekDay: Float
+}
+
+type ScheduleGroupBy {
+  id: [ScheduleConnectionId]
+  created_at: [ScheduleConnectionCreated_at]
+  updated_at: [ScheduleConnectionUpdated_at]
+  from: [ScheduleConnectionFrom]
+  to: [ScheduleConnectionTo]
+  weekDay: [ScheduleConnectionWeekDay]
+}
+
+type ScheduleConnectionId {
+  key: ID
+  connection: ScheduleConnection
+}
+
+type ScheduleConnectionCreated_at {
+  key: DateTime
+  connection: ScheduleConnection
+}
+
+type ScheduleConnectionUpdated_at {
+  key: DateTime
+  connection: ScheduleConnection
+}
+
+type ScheduleConnectionFrom {
+  key: Int
+  connection: ScheduleConnection
+}
+
+type ScheduleConnectionTo {
+  key: Int
+  connection: ScheduleConnection
+}
+
+type ScheduleConnectionWeekDay {
+  key: Int
+  connection: ScheduleConnection
+}
+
+input ScheduleInput {
+  from: Int!
+  to: Int!
+  weekDay: Int!
+  created_by: ID
+  updated_by: ID
+}
+
+input editScheduleInput {
+  from: Int
+  to: Int
+  weekDay: Int
+  created_by: ID
+  updated_by: ID
+}
+
+input createScheduleInput {
+  data: ScheduleInput
+}
+
+type createSchedulePayload {
+  schedule: Schedule
+}
+
+input updateScheduleInput {
+  where: InputID
+  data: editScheduleInput
+}
+
+type updateSchedulePayload {
+  schedule: Schedule
+}
+
+input deleteScheduleInput {
+  where: InputID
+}
+
+type deleteSchedulePayload {
+  schedule: Schedule
+}
+
 type I18NLocale {
   id: ID!
   created_at: DateTime!
@@ -683,7 +896,7 @@ type deleteUserPayload {
   user: UsersPermissionsUser
 }
 
-union Morph = UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsLoginPayload | UserPermissionsPasswordPayload | Area | AreaConnection | AreaAggregator | AreaGroupBy | AreaConnectionId | AreaConnectionCreated_at | AreaConnectionUpdated_at | AreaConnectionName | createAreaPayload | updateAreaPayload | deleteAreaPayload | I18NLocale | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileAggregatorSum | UploadFileAggregatorAvg | UploadFileAggregatorMin | UploadFileAggregatorMax | UploadFileGroupBy | UploadFileConnectionId | UploadFileConnectionCreated_at | UploadFileConnectionUpdated_at | UploadFileConnectionName | UploadFileConnectionAlternativeText | UploadFileConnectionCaption | UploadFileConnectionWidth | UploadFileConnectionHeight | UploadFileConnectionFormats | UploadFileConnectionHash | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionPreviewUrl | UploadFileConnectionProvider | UploadFileConnectionProvider_metadata | deleteFilePayload | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionCreated_at | UsersPermissionsUserConnectionUpdated_at | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole | UsersPermissionsUserConnectionName | UsersPermissionsUserConnectionSurname | UsersPermissionsUserConnectionImage | UsersPermissionsUserConnectionWhatsapp | UsersPermissionsUserConnectionBio | UsersPermissionsUserConnectionArea | createUserPayload | updateUserPayload | deleteUserPayload
+union Morph = UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsLoginPayload | UserPermissionsPasswordPayload | Area | AreaConnection | AreaAggregator | AreaGroupBy | AreaConnectionId | AreaConnectionCreated_at | AreaConnectionUpdated_at | AreaConnectionName | createAreaPayload | updateAreaPayload | deleteAreaPayload | Proffer | ProfferConnection | ProfferAggregator | ProfferGroupBy | ProfferConnectionId | ProfferConnectionCreated_at | ProfferConnectionUpdated_at | ProfferConnectionUser | createProfferPayload | updateProfferPayload | deleteProfferPayload | Schedule | ScheduleConnection | ScheduleAggregator | ScheduleAggregatorSum | ScheduleAggregatorAvg | ScheduleAggregatorMin | ScheduleAggregatorMax | ScheduleGroupBy | ScheduleConnectionId | ScheduleConnectionCreated_at | ScheduleConnectionUpdated_at | ScheduleConnectionFrom | ScheduleConnectionTo | ScheduleConnectionWeekDay | createSchedulePayload | updateSchedulePayload | deleteSchedulePayload | I18NLocale | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileAggregatorSum | UploadFileAggregatorAvg | UploadFileAggregatorMin | UploadFileAggregatorMax | UploadFileGroupBy | UploadFileConnectionId | UploadFileConnectionCreated_at | UploadFileConnectionUpdated_at | UploadFileConnectionName | UploadFileConnectionAlternativeText | UploadFileConnectionCaption | UploadFileConnectionWidth | UploadFileConnectionHeight | UploadFileConnectionFormats | UploadFileConnectionHash | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionPreviewUrl | UploadFileConnectionProvider | UploadFileConnectionProvider_metadata | deleteFilePayload | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionCreated_at | UsersPermissionsUserConnectionUpdated_at | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole | UsersPermissionsUserConnectionName | UsersPermissionsUserConnectionSurname | UsersPermissionsUserConnectionImage | UsersPermissionsUserConnectionWhatsapp | UsersPermissionsUserConnectionBio | UsersPermissionsUserConnectionArea | createUserPayload | updateUserPayload | deleteUserPayload
 
 input InputID {
   id: ID!
@@ -705,6 +918,12 @@ type Query {
   area(id: ID!, publicationState: PublicationState): Area
   areas(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [Area!]!
   areasConnection(sort: String, limit: Int, start: Int, where: JSON): AreaConnection
+  proffer(id: ID!, publicationState: PublicationState): Proffer
+  proffers(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [Proffer!]!
+  proffersConnection(sort: String, limit: Int, start: Int, where: JSON): ProfferConnection
+  schedule(id: ID!, publicationState: PublicationState): Schedule
+  schedules(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [Schedule!]!
+  schedulesConnection(sort: String, limit: Int, start: Int, where: JSON): ScheduleConnection
   files(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [UploadFile!]!
   filesConnection(sort: String, limit: Int, start: Int, where: JSON): UploadFileConnection
   role(id: ID!, publicationState: PublicationState): UsersPermissionsRole
@@ -721,6 +940,12 @@ type Mutation {
   createArea(input: createAreaInput): createAreaPayload
   updateArea(input: updateAreaInput): updateAreaPayload
   deleteArea(input: deleteAreaInput): deleteAreaPayload
+  createProffer(input: createProfferInput): createProfferPayload
+  updateProffer(input: updateProfferInput): updateProfferPayload
+  deleteProffer(input: deleteProfferInput): deleteProfferPayload
+  createSchedule(input: createScheduleInput): createSchedulePayload
+  updateSchedule(input: updateScheduleInput): updateSchedulePayload
+  deleteSchedule(input: deleteScheduleInput): deleteSchedulePayload
   """Delete one file"""
   deleteFile(input: deleteFileInput): deleteFilePayload
   """Create a new role"""

@@ -14,13 +14,13 @@ const Header: React.FC<HeaderProps> = ({ title, backTo }) => {
       <div>
         <Link href={backTo}>
           <a>
-            <img src="img/icons/back.svg" alt="Back" />
+            <img src="/img/icons/back.svg" alt="Back" />
           </a>
         </Link>
 
         <span>{title}</span>
 
-        <img src="img/logo.svg" alt="Proffy" />
+        <img src="/img/logo.svg" alt="Proffy" />
       </div>
     </Container>
   )

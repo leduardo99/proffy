@@ -17,6 +17,21 @@ export interface InputID {
   id: string;
 }
 
+export interface ProfferInput {
+  schedules?: (string | null)[] | null;
+  user?: string | null;
+  created_by?: string | null;
+  updated_by?: string | null;
+}
+
+export interface ScheduleInput {
+  from: number;
+  to: number;
+  weekDay: number;
+  created_by?: string | null;
+  updated_by?: string | null;
+}
+
 export interface UsersRegisterInput {
   email: string;
   password: string;
@@ -26,6 +41,21 @@ export interface UsersRegisterInput {
 
 export interface createAreaInput {
   data?: AreaInput | null;
+}
+
+export interface createProfferInput {
+  data?: ProfferInput | null;
+}
+
+export interface createScheduleInput {
+  data?: ScheduleInput | null;
+}
+
+export interface editProfferInput {
+  schedules?: (string | null)[] | null;
+  user?: string | null;
+  created_by?: string | null;
+  updated_by?: string | null;
 }
 
 export interface editUserInput {
@@ -46,6 +76,11 @@ export interface editUserInput {
   area?: string | null;
   created_by?: string | null;
   updated_by?: string | null;
+}
+
+export interface updateProfferInput {
+  where?: InputID | null;
+  data?: editProfferInput | null;
 }
 
 export interface updateUserInput {

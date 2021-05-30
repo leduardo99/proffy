@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "schedules",
+  "info": {
+    "name": "Schedule",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "from": {
+      "type": "integer",
+      "required": true
+    },
+    "to": {
+      "type": "integer",
+      "required": true
+    },
+    "weekDay": {
+      "type": "integer",
+      "required": true,
+      "max": 6,
+      "min": 0
+    }
+  }
+}
