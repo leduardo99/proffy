@@ -5,8 +5,15 @@ import HomeTemplate from 'templates/Home'
 import { initializeApollo } from 'utils/apollo'
 import protectedRoutes from 'utils/protected-routes'
 
+import SEO from 'components/SEO'
+
 export default function Home(props) {
-  return <HomeTemplate {...props} />
+  return (
+    <>
+      <SEO title="Home" image="logo.svg" />
+      <HomeTemplate {...props} />
+    </>
+  )
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {

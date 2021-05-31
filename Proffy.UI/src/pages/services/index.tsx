@@ -1,6 +1,7 @@
 import { GetServerSidePropsContext } from 'next'
 
 import ServicesTemplate from 'templates/Services/ProfferList'
+import SEO from 'components/SEO'
 
 import { initializeApollo } from 'utils/apollo'
 import protectedRoutes from 'utils/protected-routes'
@@ -9,7 +10,12 @@ import { QUERY_AREAS } from 'graphql/queries/area'
 import { QueryAreas } from 'graphql/generated/QueryAreas'
 
 const Services = (props) => {
-  return <ServicesTemplate {...props} />
+  return (
+    <>
+      <SEO title="Serviços" image="logo.svg" />
+      <ServicesTemplate {...props} />
+    </>
+  )
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {

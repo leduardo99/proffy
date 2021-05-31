@@ -4,9 +4,12 @@ import FormResetPassword, {
   FormResetPasswordProps
 } from 'components/FormResetPassword'
 
+import SEO from 'components/SEO'
+
 export default function ResetPassword(props: FormResetPasswordProps) {
   return (
     <Auth layout="reverse">
+      <SEO title="Resetar Senha" shouldIndexPage={false} />
       <FormResetPassword {...props} />
     </Auth>
   )

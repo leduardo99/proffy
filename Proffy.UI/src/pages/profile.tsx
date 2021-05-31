@@ -4,8 +4,15 @@ import ProfileTemplate from 'templates/Profile'
 
 import protectedRoutes from 'utils/protected-routes'
 
+import SEO from 'components/SEO'
+
 export default function Profile() {
-  return <ProfileTemplate />
+  return (
+    <>
+      <SEO title="Perfil" shouldIndexPage={false} />
+      <ProfileTemplate />
+    </>
+  )
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
