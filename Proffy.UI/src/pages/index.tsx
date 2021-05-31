@@ -1,19 +1,30 @@
+import { QueryConnections } from 'graphql/generated/QueryConnections'
+import { QUERY_CONNECTIONS } from 'graphql/queries/connection'
 import { GetServerSidePropsContext } from 'next'
 import HomeTemplate from 'templates/Home'
+import { initializeApollo } from 'utils/apollo'
 import protectedRoutes from 'utils/protected-routes'
 
-export default function Home() {
-  return <HomeTemplate />
+export default function Home(props) {
+  return <HomeTemplate {...props} />
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await protectedRoutes(context)
+  const apollo = initializeApollo(null, session)
 
   if (!session) {
     return { props: {} }
   }
 
+  const {
+    data: { connections }
+  } = await apollo.query<QueryConnections>({
+    query: QUERY_CONNECTIONS,
+    fetchPolicy: 'no-cache'
+  })
+
   return {
-    props: { session }
+    props: { session, connections: connections.length }
   }
 }

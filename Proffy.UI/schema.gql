@@ -159,6 +159,97 @@ type deleteAreaPayload {
   area: Area
 }
 
+type Connection {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  proffer: Proffer
+  user: UsersPermissionsUser
+}
+
+type ConnectionConnection {
+  values: [Connection]
+  groupBy: ConnectionGroupBy
+  aggregate: ConnectionAggregator
+}
+
+type ConnectionAggregator {
+  count: Int
+  totalCount: Int
+}
+
+type ConnectionGroupBy {
+  id: [ConnectionConnectionId]
+  created_at: [ConnectionConnectionCreated_at]
+  updated_at: [ConnectionConnectionUpdated_at]
+  proffer: [ConnectionConnectionProffer]
+  user: [ConnectionConnectionUser]
+}
+
+type ConnectionConnectionId {
+  key: ID
+  connection: ConnectionConnection
+}
+
+type ConnectionConnectionCreated_at {
+  key: DateTime
+  connection: ConnectionConnection
+}
+
+type ConnectionConnectionUpdated_at {
+  key: DateTime
+  connection: ConnectionConnection
+}
+
+type ConnectionConnectionProffer {
+  key: ID
+  connection: ConnectionConnection
+}
+
+type ConnectionConnectionUser {
+  key: ID
+  connection: ConnectionConnection
+}
+
+input ConnectionInput {
+  proffer: ID
+  user: ID
+  created_by: ID
+  updated_by: ID
+}
+
+input editConnectionInput {
+  proffer: ID
+  user: ID
+  created_by: ID
+  updated_by: ID
+}
+
+input createConnectionInput {
+  data: ConnectionInput
+}
+
+type createConnectionPayload {
+  connection: Connection
+}
+
+input updateConnectionInput {
+  where: InputID
+  data: editConnectionInput
+}
+
+type updateConnectionPayload {
+  connection: Connection
+}
+
+input deleteConnectionInput {
+  where: InputID
+}
+
+type deleteConnectionPayload {
+  connection: Connection
+}
+
 type Proffer {
   id: ID!
   created_at: DateTime!
@@ -896,7 +987,7 @@ type deleteUserPayload {
   user: UsersPermissionsUser
 }
 
-union Morph = UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsLoginPayload | UserPermissionsPasswordPayload | Area | AreaConnection | AreaAggregator | AreaGroupBy | AreaConnectionId | AreaConnectionCreated_at | AreaConnectionUpdated_at | AreaConnectionName | createAreaPayload | updateAreaPayload | deleteAreaPayload | Proffer | ProfferConnection | ProfferAggregator | ProfferGroupBy | ProfferConnectionId | ProfferConnectionCreated_at | ProfferConnectionUpdated_at | ProfferConnectionUser | createProfferPayload | updateProfferPayload | deleteProfferPayload | Schedule | ScheduleConnection | ScheduleAggregator | ScheduleAggregatorSum | ScheduleAggregatorAvg | ScheduleAggregatorMin | ScheduleAggregatorMax | ScheduleGroupBy | ScheduleConnectionId | ScheduleConnectionCreated_at | ScheduleConnectionUpdated_at | ScheduleConnectionFrom | ScheduleConnectionTo | ScheduleConnectionWeekDay | createSchedulePayload | updateSchedulePayload | deleteSchedulePayload | I18NLocale | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileAggregatorSum | UploadFileAggregatorAvg | UploadFileAggregatorMin | UploadFileAggregatorMax | UploadFileGroupBy | UploadFileConnectionId | UploadFileConnectionCreated_at | UploadFileConnectionUpdated_at | UploadFileConnectionName | UploadFileConnectionAlternativeText | UploadFileConnectionCaption | UploadFileConnectionWidth | UploadFileConnectionHeight | UploadFileConnectionFormats | UploadFileConnectionHash | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionPreviewUrl | UploadFileConnectionProvider | UploadFileConnectionProvider_metadata | deleteFilePayload | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionCreated_at | UsersPermissionsUserConnectionUpdated_at | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole | UsersPermissionsUserConnectionName | UsersPermissionsUserConnectionSurname | UsersPermissionsUserConnectionImage | UsersPermissionsUserConnectionWhatsapp | UsersPermissionsUserConnectionBio | UsersPermissionsUserConnectionArea | createUserPayload | updateUserPayload | deleteUserPayload
+union Morph = UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsLoginPayload | UserPermissionsPasswordPayload | Area | AreaConnection | AreaAggregator | AreaGroupBy | AreaConnectionId | AreaConnectionCreated_at | AreaConnectionUpdated_at | AreaConnectionName | createAreaPayload | updateAreaPayload | deleteAreaPayload | Connection | ConnectionConnection | ConnectionAggregator | ConnectionGroupBy | ConnectionConnectionId | ConnectionConnectionCreated_at | ConnectionConnectionUpdated_at | ConnectionConnectionProffer | ConnectionConnectionUser | createConnectionPayload | updateConnectionPayload | deleteConnectionPayload | Proffer | ProfferConnection | ProfferAggregator | ProfferGroupBy | ProfferConnectionId | ProfferConnectionCreated_at | ProfferConnectionUpdated_at | ProfferConnectionUser | createProfferPayload | updateProfferPayload | deleteProfferPayload | Schedule | ScheduleConnection | ScheduleAggregator | ScheduleAggregatorSum | ScheduleAggregatorAvg | ScheduleAggregatorMin | ScheduleAggregatorMax | ScheduleGroupBy | ScheduleConnectionId | ScheduleConnectionCreated_at | ScheduleConnectionUpdated_at | ScheduleConnectionFrom | ScheduleConnectionTo | ScheduleConnectionWeekDay | createSchedulePayload | updateSchedulePayload | deleteSchedulePayload | I18NLocale | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileAggregatorSum | UploadFileAggregatorAvg | UploadFileAggregatorMin | UploadFileAggregatorMax | UploadFileGroupBy | UploadFileConnectionId | UploadFileConnectionCreated_at | UploadFileConnectionUpdated_at | UploadFileConnectionName | UploadFileConnectionAlternativeText | UploadFileConnectionCaption | UploadFileConnectionWidth | UploadFileConnectionHeight | UploadFileConnectionFormats | UploadFileConnectionHash | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionPreviewUrl | UploadFileConnectionProvider | UploadFileConnectionProvider_metadata | deleteFilePayload | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionCreated_at | UsersPermissionsUserConnectionUpdated_at | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole | UsersPermissionsUserConnectionName | UsersPermissionsUserConnectionSurname | UsersPermissionsUserConnectionImage | UsersPermissionsUserConnectionWhatsapp | UsersPermissionsUserConnectionBio | UsersPermissionsUserConnectionArea | createUserPayload | updateUserPayload | deleteUserPayload
 
 input InputID {
   id: ID!
@@ -918,6 +1009,9 @@ type Query {
   area(id: ID!, publicationState: PublicationState): Area
   areas(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [Area!]!
   areasConnection(sort: String, limit: Int, start: Int, where: JSON): AreaConnection
+  connection(id: ID!, publicationState: PublicationState): Connection
+  connections(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [Connection!]!
+  connectionsConnection(sort: String, limit: Int, start: Int, where: JSON): ConnectionConnection
   proffer(id: ID!, publicationState: PublicationState): Proffer
   proffers(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [Proffer!]!
   proffersConnection(sort: String, limit: Int, start: Int, where: JSON): ProfferConnection
@@ -940,6 +1034,9 @@ type Mutation {
   createArea(input: createAreaInput): createAreaPayload
   updateArea(input: updateAreaInput): updateAreaPayload
   deleteArea(input: deleteAreaInput): deleteAreaPayload
+  createConnection(input: createConnectionInput): createConnectionPayload
+  updateConnection(input: updateConnectionInput): updateConnectionPayload
+  deleteConnection(input: deleteConnectionInput): deleteConnectionPayload
   createProffer(input: createProfferInput): createProfferPayload
   updateProffer(input: updateProfferInput): updateProfferPayload
   deleteProffer(input: deleteProfferInput): deleteProfferPayload

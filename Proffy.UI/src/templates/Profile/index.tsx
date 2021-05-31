@@ -67,16 +67,17 @@ export default function Profile() {
   const formRef = useRef(null)
   const router = useRouter()
 
-  const { data, fetchMore } = useQuery<QueryProfileMe, QueryProfileMeVariables>(
-    QUERY_PROFILE_ME,
-    {
-      context: { session },
-      fetchPolicy: 'no-cache',
-      variables: {
-        identifier: session?.id as string
-      }
+  const {
+    data,
+    fetchMore,
+    loading: isLoading
+  } = useQuery<QueryProfileMe, QueryProfileMeVariables>(QUERY_PROFILE_ME, {
+    context: { session },
+    fetchPolicy: 'no-cache',
+    variables: {
+      identifier: session?.id as string
     }
-  )
+  })
 
   const { data: areasData } = useQuery<QueryAreas>(QUERY_AREAS, {
     context: { session },
@@ -131,12 +132,20 @@ export default function Profile() {
     }
   )
 
-  const handleSubmit: SubmitHandler<FormData> = async ({ area, ...rest }) => {
+  const handleSubmit: SubmitHandler<FormData> = async ({
+    area,
+    whatsapp,
+    ...rest
+  }) => {
     await updateUser({
       variables: {
         input: {
           where: { id: data.user.id },
-          data: { ...rest, area: area?.id ?? null }
+          data: {
+            ...rest,
+            whatsapp: whatsapp.replace(/[^\d]/g, ''),
+            area: area?.id ?? null
+          }
         }
       }
     })
@@ -184,7 +193,7 @@ export default function Profile() {
     }
   }: any) => validity.valid && updateAvatar({ variables: { file } })
 
-  if (!data?.user || !data.user.area) return null
+  if (isLoading) return null
 
   return (
     <S.Container>

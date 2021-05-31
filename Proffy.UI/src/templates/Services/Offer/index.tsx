@@ -124,7 +124,6 @@ const ServicesOffer: React.FC<Props> = ({ user, areas, proffer }) => {
 
   useEffect(() => {
     if (proffer) {
-      console.log(proffer)
       setNewSchedules(proffer.schedules)
     }
   }, [proffer])
@@ -249,7 +248,7 @@ const ServicesOffer: React.FC<Props> = ({ user, areas, proffer }) => {
         </Block>
 
         <Block>
-          <legend>Sobre a aula</legend>
+          <legend>Sobre a área de atuação</legend>
 
           <InputGroup>
             <Select

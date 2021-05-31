@@ -13,6 +13,13 @@ export interface AreaInput {
   updated_by?: string | null;
 }
 
+export interface ConnectionInput {
+  proffer?: string | null;
+  user?: string | null;
+  created_by?: string | null;
+  updated_by?: string | null;
+}
+
 export interface InputID {
   id: string;
 }
@@ -41,6 +48,10 @@ export interface UsersRegisterInput {
 
 export interface createAreaInput {
   data?: AreaInput | null;
+}
+
+export interface createConnectionInput {
+  data?: ConnectionInput | null;
 }
 
 export interface createProfferInput {

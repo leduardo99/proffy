@@ -67,6 +67,21 @@ export const QUERY_PROFFERS_WITH_FILTERS = gql`
   ) {
     proffers(sort: $sort, limit: $limit, start: $start, where: $where) {
       id
+      user {
+        id
+        email
+        name
+        surname
+        whatsapp
+        bio
+        area {
+          id
+          name
+        }
+        image {
+          url
+        }
+      }
       schedules {
         id
         from

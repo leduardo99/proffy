@@ -7,7 +7,11 @@ import Button from 'components/Button'
 import * as S from './styles'
 import { getImageUrl } from 'utils/getImageUrl'
 
-export default function Home() {
+type Props = {
+  connections: number
+}
+
+export default function Home({ connections }: Props) {
   const [session] = useSession()
   const { push } = useRouter()
 
@@ -46,7 +50,7 @@ export default function Home() {
           </h2>
 
           <small>
-            Total de 10 conexões já realizadas
+            Total de {connections} conexões já realizadas
             <img src="img/icons/purple-heart.svg" alt="Landing" />
           </small>
         </S.InfoContainer>

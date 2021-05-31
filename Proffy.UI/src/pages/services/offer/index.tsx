@@ -12,10 +12,7 @@ import {
   QueryProfileMe,
   QueryProfileMeVariables
 } from 'graphql/generated/QueryProfileMe'
-import {
-  QUERY_PROFFER,
-  QUERY_PROFFERS_WITH_FILTERS
-} from 'graphql/queries/proffer'
+import { QUERY_PROFFERS_WITH_FILTERS } from 'graphql/queries/proffer'
 import {
   QueryProffersWithFilters,
   QueryProffersWithFiltersVariables
