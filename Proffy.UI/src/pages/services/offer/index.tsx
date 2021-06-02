@@ -37,7 +37,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   }
 
   const {
-    data: { user }
+    data: { user },
+    loading: loadingUser
   } = await apollo.query<QueryProfileMe, QueryProfileMeVariables>({
     query: QUERY_PROFILE_ME,
     variables: {
@@ -46,13 +47,15 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   })
 
   const {
-    data: { areas }
+    data: { areas },
+    loading: loadingAreas
   } = await apollo.query<QueryAreas>({
     query: QUERY_AREAS
   })
 
   const {
-    data: { proffers }
+    data: { proffers },
+    loading: loadingProffers
   } = await apollo.query<
     QueryProffersWithFilters,
     QueryProffersWithFiltersVariables
@@ -66,7 +69,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       session,
       user,
       areas,
-      proffer: proffers.length > 0 ? proffers[0] : null
+      proffer: proffers.length > 0 ? proffers[0] : null,
+      isLoading: loadingUser || loadingProffers || loadingAreas
     }
   }
 }

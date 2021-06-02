@@ -72,9 +72,15 @@ interface Props {
     name: string
   }>
   proffer: any | null
+  isLoading: boolean
 }
 
-const ServicesOffer: React.FC<Props> = ({ user, areas, proffer }) => {
+const ServicesOffer: React.FC<Props> = ({
+  user,
+  areas,
+  proffer,
+  isLoading
+}) => {
   const formRef = useRef<FormHandles>(null)
   const [session] = useSession()
 
@@ -187,7 +193,7 @@ const ServicesOffer: React.FC<Props> = ({ user, areas, proffer }) => {
     return <Success />
   }
 
-  if (!user || !user.area) return null
+  if (isLoading) return null
 
   return (
     <Container>
